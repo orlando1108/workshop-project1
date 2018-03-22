@@ -5,7 +5,7 @@
             <v-layout row wrap>
                 <v-flex xs12 md6 v-for="logo in logos"> <!-- tant qu'il y a des objets logos on affiche la div avec les valeurs correspondant à l'objet ac-->
                     <v-card>
-                        <v-card-media :src="logo.path" height="200px"></v-card-media>
+                        <v-card-media :src="logo.path" height="300px" :contain="true"></v-card-media>
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -17,7 +17,7 @@
                     <v-text-field
                     :label="input.name_label"
                     :v-model="input.name_model"
-                    :rules="input.name_rules"
+                    :rules="nameRules"
                     required
                     >
                     </v-text-field>
@@ -28,14 +28,14 @@
             <v-layout row wrap>
                 <v-flex xs12 md6 v-for="card in cards">
                     <v-card>
-                        <v-card-media :src="card.path" height="200px"></v-card-media>
-                        <v-card-title primary-title class='error white--text'>
+                        <v-card-media :src="card.path" height="300px" :contain="true"></v-card-media>
+                        <v-card-title primary-title class='error white--text text-md-center'>
                             <div>
-                                <h3 class="headline mb-0 text-center">{{ card.title }}</h3>
+                                <h3 class="headline mb-0">{{ card.title }}</h3>
                             </div>
                         </v-card-title>
                             <v-card-actions>
-                                <v-checkbox v-model="includeFiles" label="i'm interested"></v-checkbox>
+                                <v-checkbox :v-model="card.enabled" label="i'm interested"></v-checkbox>
                             </v-card-actions>
                     </v-card>
                 </v-flex>
@@ -66,12 +66,12 @@
                 {
                     path: 'http://www.home-interieur.fr/photo/black-et-white1.jpg',
                     title: 'Black & White',
-                    name_model:""
+                    name_model:"includeFiles"
                 },
                 {
                     path: 'https://birchbox.fr/wp-content/uploads/2015/06/cdp-savon-liquide1.jpg',
                     title: 'Extra Pur',
-                    name_model:""
+                    name_model:"enabled"
                 },
                 {
                     path: 'https://www.manitself.fr/wp-content/uploads/2016/08/la-compagnie-de-provence-gel-apres-rasage.jpg',
@@ -118,7 +118,7 @@
     div.card{
         margin:3% 3%; /*top/bottom right/left*/
     }
-    div.card img{
-       
+    div.card.logo_header{
+        height:800px;
     }
 </style>
