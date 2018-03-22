@@ -26,17 +26,17 @@
         </v-container>
         <v-container>
             <v-layout row wrap>
-                <v-flex xs12 md6 v-for="card in cards">
+                <v-flex xl2 lg3 md4 sm6 xs12 v-for="card in cards" class="container_cards">
                     <v-card>
-                        <v-card-media :src="card.path" height="300px" :contain="true"></v-card-media>
-                        <v-card-title primary-title class='error white--text text-md-center'>
-                            <div>
-                                <h3 class="headline mb-0">{{ card.title }}</h3>
-                            </div>
-                        </v-card-title>
-                            <v-card-actions>
-                                <v-checkbox :v-model="card.enabled" label="i'm interested"></v-checkbox>
-                            </v-card-actions>
+                        <v-card-media :src="card.path" height="200px" :contain="true"></v-card-media>
+                            <v-card-title primary-title class='error white--text text-md-center'>
+                                <div>
+                                    <h3 class="headline mb-0">{{ card.title }}</h3>
+                                </div>
+                            </v-card-title>
+                                <v-card-actions>
+                                    <v-checkbox :v-model="card.enabled" label="i'm interested"></v-checkbox>
+                                </v-card-actions>
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -113,7 +113,12 @@
     div.card{
         margin:3% 3%; /*top/bottom right/left*/
     }
-    div.card.logo_header{
-        height:800px;
+    div.container_cards{
+        width:16%;
     }
+/*
+    div.container_infos_cards{
+      height:150px;
+    }
+*/
 </style>
