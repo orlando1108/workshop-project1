@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import form from '@/components/form'
+import Collections from '@/components/Collections'
 import Vuetify from 'vuetify'
 
 Vue.use(Vuetify)
@@ -15,9 +15,9 @@ export default new Router({
       component: HelloWorld
     },
     {
-        path: '/form', //racine
-        name: 'Form',
-        component: form
+        path: '/collections', //racine
+        name: 'Collections',
+        component: Collections
     }
   ]
 })
