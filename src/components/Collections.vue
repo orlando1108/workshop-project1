@@ -1,19 +1,10 @@
 <template> <!--container du template qui va être appelé-->
 <v-app> <!--container de l'application c'est nécessaire d'en avoir un -->
     <v-form v-model="valid" ref="form" lazy-validation> <!--container du formulaire-->
-        <v-container> 
-            <v-layout row wrap>
-                <v-flex xs12 md6 v-for="logo in logos"> <!-- tant qu'il y a des objets logos on affiche la div avec les valeurs correspondant à l'objet ac-->
-                    <v-card>
-                        <v-card-media :src="logo.path" height="300px" :contain="true"></v-card-media>
-                    </v-card>
-                </v-flex>
-            </v-layout>
-        </v-container>
-        
         <v-container>
+           <h2>Informations à remplir</h2>
             <v-layout row wrap>
-                <v-flex lg6 md6 xs12 v-for="input in inputs">
+                <v-flex class="container_input" xl5 lg5 md5 sm5 xs12 v-for="input in inputs">
                     <v-text-field
                     :label="input.name_label"
                     :v-model="input.name_model"
@@ -25,18 +16,21 @@
             </v-layout>
         </v-container>
         <v-container>
+           <v-flex><h1>Nos collections</h1></v-flex>
             <v-layout row wrap>
-                <v-flex xl2 lg3 md4 sm6 xs12 v-for="card in cards" class="container_cards">
+                <v-flex xl2 lg3 md4 sm6 xs12 v-for="card in cards">
                     <v-card>
                         <v-card-media :src="card.path" height="200px" :contain="true"></v-card-media>
-                            <v-card-title primary-title class='error white--text text-md-center'>
-                                <div>
-                                    <h3 class="headline mb-0">{{ card.title }}</h3>
-                                </div>
-                            </v-card-title>
-                                <v-card-actions>
-                                    <v-checkbox :v-model="card.enabled" label="i'm interested"></v-checkbox>
-                                </v-card-actions>
+                        <v-card-title primary-title :id="card.title" class='white--text'>
+                                <h3 class="headline mb-0">{{ card.title }}</h3>
+<!--                                <div class="container_icones">test</div>-->
+                        </v-card-title>
+<!--
+                            <v-flex>
+                                <v-card-media src="/static/icones/add.png" height="50px" :contain="true"></v-card-media>
+                                <v-card-media src="/static/icones/readmore.png" height="50px" :contain="true"></v-card-media>
+                            </v-flex>
+-->
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -62,42 +56,43 @@
                 {
                     path: '/static/collections/blackwhite.png',
                     title: 'Black & White',
-                    name_model:"includeFiles"
+                    name_model:"includeFiles",
+                    color:"#000000"
                 },
                 {
                     path: '/static/collections/extrapur.png',
                     title: 'Extra Pur',
-                    name_model:"enabled"
+                    color:"62B5E5"
                 },
                 {
                     path: '/static/collections/groomingformen.png',
                     title: 'Grooming For Men',
-                    name_model:""
+                    color:"62B5E5"
                 },
                 {
                     path: '/static/collections/karite.jpg',
                     title: 'Karite',
-                    name_model:""
+                    color:"62B5E5"
                 },
                 {
                     path: '/static/collections/maison_home.png',
                     title: 'Maison Home',
-                    name_model:""
+                    color:"62B5E5"
                 },
                 {
                     path: '/static/collections/vo.png',
                     title: 'Version Originale',
-                    name_model:""
+                    color:"62B5E5"
                 },
             ],
             inputs: [
                 {
-                    name_label:"Name",
+                    name_label:"Nom entreprise",
                     name_model:"name",
                     name_rules:"nameRules"
                 },
                 {
-                    name_label:"E-mail",
+                    name_label:"E-mail entreprise",
                     name_model:"email",
                     name_rules:"emailRules"
                 }
@@ -109,16 +104,44 @@
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    /*container d'un produit*/
+    /*espace entre les champs du formulaire*/
+    div.container_input{
+        margin:1% 1%;
+    }
+    /*espace entre les div des collections*/
     div.card{
         margin:3% 3%; /*top/bottom right/left*/
     }
-    div.container_cards{
-        width:16%;
+    /*container en bas de l'img*/
+    div.card__title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-/*
-    div.container_infos_cards{
-      height:150px;
+    /*container icones*/
+    div.container_icones{
+       
     }
-*/
+    /*couleur de fond pour chaque collection
+    selon le document sur le drive (sharepoint/docs/pantone&policy)
+    https://drive.google.com/drive/folders/1up_xhP11L64vZTDStzCjKSOppzEfP-bO
+    */
+    div[id="Black & White"]{
+        background-color:#231F20;
+    }
+    div[id="Extra Pur"]{
+        background-color:#CFD1CE;
+    }
+    div[id="Grooming For Men"]{
+        background-color:#357AA1;
+    }
+    div[id="Karite"]{
+        background-color:#d9c89e;
+    }
+    div[id="Maison Home"]{
+        background-color:#53C1B6;
+    }
+    div[id="Version Originale"]{
+        background-color:#5B5E5F;
+    }
 </style>
