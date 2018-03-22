@@ -64,32 +64,32 @@
             ],
             cards: [
                 {
-                    path: 'http://www.home-interieur.fr/photo/black-et-white1.jpg',
+                    path: './src/assets/img/collections/blackwhite.png',
                     title: 'Black & White',
                     name_model:"includeFiles"
                 },
                 {
-                    path: 'https://birchbox.fr/wp-content/uploads/2015/06/cdp-savon-liquide1.jpg',
+                    path: 'http://localhost/workshop/workshop-project1/src/assets/img/collections/extrapur.png',
                     title: 'Extra Pur',
                     name_model:"enabled"
                 },
                 {
-                    path: 'https://www.manitself.fr/wp-content/uploads/2016/08/la-compagnie-de-provence-gel-apres-rasage.jpg',
+                    path: 'http://localhost/workshop/workshop-project1/src/assets/img/collections/groomingformen.png',
                     title: 'Grooming For Men',
                     name_model:""
                 },
                 {
-                    path: 'http://dorisknowsfashion.com/wp-content/uploads/2015/07/karit%C3%A9--1024x768.jpg',
+                    path: 'http://localhost/workshop/workshop-project1/src/assets/img/collections/karite.jpg',
                     title: 'Karite',
                     name_model:""
                 },
                 {
-                    path: 'https://corso.co.nz/uploads/products/CDP18073_LS500.png',
+                    path: 'http://localhost/workshop/workshop-project1/src/assets/img/collections/maison_home.png',
                     title: 'Maison Home',
                     name_model:""
                 },
                 {
-                    path: 'https://i.pinimg.com/736x/cb/67/7b/cb677bf02e3399a171db1679303d07e3--beauty-packaging-package-design.jpg',
+                    path: 'http://localhost/workshop/workshop-project1/src/assets/img/collections/vo.png',
                     title: 'Version Originale',
                     name_model:""
                 },
