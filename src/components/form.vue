@@ -54,42 +54,42 @@
         data: () => ({
             logos: [
                 {
-                    path: 'http://localhost/workshop/workshop-project1/src/assets/img/Citta.Logo.Black.CMYK_LowRes.jpg',
+                    path: '/static/logos/citta.jpg',
                     title: 'Città'
                 },
                 {
-                    path: 'http://localhost/workshop/workshop-project1/src/assets/img/logo-cdp-2016(noir).png',
+                    path: '/static/logos/cdp.png',
                     title: 'Compagnie de provence'
                 }
             ],
             cards: [
                 {
-                    path: './src/assets/img/collections/blackwhite.png',
+                    path: '/static/collections/blackwhite.png',
                     title: 'Black & White',
                     name_model:"includeFiles"
                 },
                 {
-                    path: 'http://localhost/workshop/workshop-project1/src/assets/img/collections/extrapur.png',
+                    path: '/static/collections/extrapur.png',
                     title: 'Extra Pur',
                     name_model:"enabled"
                 },
                 {
-                    path: 'http://localhost/workshop/workshop-project1/src/assets/img/collections/groomingformen.png',
+                    path: '/static/collections/groomingformen.png',
                     title: 'Grooming For Men',
                     name_model:""
                 },
                 {
-                    path: 'http://localhost/workshop/workshop-project1/src/assets/img/collections/karite.jpg',
+                    path: '/static/collections/karite.jpg',
                     title: 'Karite',
                     name_model:""
                 },
                 {
-                    path: 'http://localhost/workshop/workshop-project1/src/assets/img/collections/maison_home.png',
+                    path: '/static/collections/maison_home.png',
                     title: 'Maison Home',
                     name_model:""
                 },
                 {
-                    path: 'http://localhost/workshop/workshop-project1/src/assets/img/collections/vo.png',
+                    path: '/static/collections/vo.png',
                     title: 'Version Originale',
                     name_model:""
                 },
@@ -111,7 +111,6 @@
         })
     }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     /*container d'un produit*/
