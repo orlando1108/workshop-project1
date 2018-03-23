@@ -1,124 +1,96 @@
 <template> <!--container du template qui va être appelé-->
 <v-app> <!--container de l'application c'est nécessaire d'en avoir un -->
     <v-form v-model="valid" ref="form" lazy-validation> <!--container du formulaire-->
-        <v-container> 
-            <v-layout row wrap>
-                <v-flex xs12 md6 v-for="logo in logos"> <!-- tant qu'il y a des objets logos on affiche la div avec les valeurs correspondant à l'objet ac-->
-                    <v-card>
-                        <v-card-media :src="logo.path" height="300px" :contain="true"></v-card-media>
-                    </v-card>
-                </v-flex>
-            </v-layout>
-        </v-container>
-        
         <v-container>
+            <v-flex>
+                <h1>Liste des produits</h1>
+            </v-flex>
             <v-layout row wrap>
-                <v-flex lg6 md6 xs12 v-for="input in inputs">
-                    <v-text-field
-                    :label="input.name_label"
-                    :v-model="input.name_model"
-                    :rules="nameRules"
-                    required
-                    >
-                    </v-text-field>
-                </v-flex>
-            </v-layout>
-        </v-container>
-        <v-container>
-            <v-layout row wrap>
-                <v-flex xs12 md6 v-for="card in cards">
+                <v-flex xl2 lg3 md4 sm6 xs12 v-for="card in cards">
                     <v-card>
-                        <v-card-media :src="card.path" height="300px" :contain="true"></v-card-media>
-                        <v-card-title primary-title class='error white--text text-md-center'>
-                            <div>
-                                <h3 class="headline mb-0">{{ card.title }}</h3>
-                            </div>
+                        <v-card-media :src="card.path" height="200px" :contain="true">
+                            <v-flex class="container_icones">
+                                <v-btn fab dark medium color="pink">
+                                    <v-icon dark>favorite</v-icon>
+                                </v-btn>
+                            </v-flex>
+                        </v-card-media>
+                        <v-card-title primary-title :class='card.collection'>
+                            <h3 class="headline mb-0">{{ card.name }}</h3>
                         </v-card-title>
-                            <v-card-actions>
-                                <v-checkbox :v-model="card.enabled" label="i'm interested"></v-checkbox>
-                            </v-card-actions>
                     </v-card>
                 </v-flex>
             </v-layout>
         </v-container>
     </v-form>
 </v-app>
-<!-- <transition name="bounce" mode="out-in"> 
-  </transition>-->
+
 </template>
 <script>
+    function add_collections(){
+        alert('ceci est un test');
+    }
+</script>
+<script>
     export default {
-        name: 'form',
-        $_veeValidate: {
-            validator: 'new'
-        },
         data: () => ({
-            logos: [
-                {
-                    path: '/static/logos/citta.jpg',
-                    title: 'Città'
-                },
-                {
-                    path: '/static/logos/cdp.png',
-                    title: 'Compagnie de provence'
-                }
-            ],
             cards: [
                 {
-                    path: '/static/collections/blackwhite.png',
-                    title: 'Black & White',
-                    name_model:"includeFiles"
+                    path: '/static/produits/blackandwhite/black-white-hand-cream-black-tea.jpg',
+                    collection: 'Black & White',
+                    name:'Hand cream black tea'
                 },
                 {
-                    path: '/static/collections/extrapur.png',
-                    title: 'Extra Pur',
-                    name_model:"enabled"
+                    path: '/static/produits/blackandwhite/black-white-hand-cream-white-tea.jpg',
+                    collection: 'Black & White',
+                    name:'Hand cream white tea'
                 },
                 {
-                    path: '/static/collections/groomingformen.png',
-                    title: 'Grooming For Men',
-                    name_model:""
+                    path: '/static/produits/blackandwhite/black-white-liquid-marseille-soap-black-tea.jpg',
+                    collection: 'Black & White',
+                    name:'Liquid marseille black tea'
                 },
                 {
-                    path: '/static/collections/karite.jpg',
-                    title: 'Karite',
-                    name_model:""
+                    path: '/static/produits/blackandwhite/black-white-liquid-marseille-soap-white-tea.jpg',
+                    collection: 'Black & White',
+                    name:'Liquid marseille white tea'
                 },
                 {
-                    path: '/static/collections/maison_home.png',
-                    title: 'Maison Home',
-                    name_model:""
+                    path: '/static/produits/blackandwhite/black-white-scented-candle-black.jpg',
+                    collection: 'Black & White',
+                    name:'Scented Candle black'
                 },
                 {
-                    path: '/static/collections/vo.png',
-                    title: 'Version Originale',
-                    name_model:""
+                    path: '/static/produits/blackandwhite/black-white-scented-candle-white.jpg',
+                    collection: 'Black & White',
+                    name:'Scented Candle white'
                 },
             ],
-            inputs: [
-                {
-                    name_label:"Name",
-                    name_model:"name",
-                    name_rules:"nameRules"
-                },
-                {
-                    name_label:"E-mail",
-                    name_model:"email",
-                    name_rules:"emailRules"
-                }
-            ],
-            includeFiles: false,
-            enabled: false
         })
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    /*container d'un produit*/
+    /*espace entre les champs du formulaire*/
+    div.container_input{
+        margin:1% 1%;
+    }
+    /*espace entre les div des collections*/
     div.card{
         margin:3% 3%; /*top/bottom right/left*/
     }
-    div.card.logo_header{
-        height:800px;
+    /*container en bas de l'img*/
+    div.card__title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height:100px;
+        color: white !important;
+        background-color:#607D8B;
+    }
+    /*container icones*/
+    div.container_icones{
+        padding-top:5px;
+        padding-left:70%;
     }
 </style>
