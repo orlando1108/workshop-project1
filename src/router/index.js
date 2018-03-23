@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Collections from '@/components/Collections'
 import Produits from '@/components/Produits'
-import Menu from '@/components/menu'
+import Menu from '@/components/Menu'
 import Vuetify from 'vuetify'
 
 Vue.use(Vuetify)
