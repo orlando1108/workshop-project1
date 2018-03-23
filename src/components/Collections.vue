@@ -2,35 +2,19 @@
 <v-app> <!--container de l'application c'est nécessaire d'en avoir un -->
     <v-form v-model="valid" ref="form" lazy-validation> <!--container du formulaire-->
         <v-container>
-           <h2>Informations à remplir</h2>
-            <v-layout row wrap>
-                <v-flex class="container_input" xl5 lg5 md5 sm5 xs12 v-for="input in inputs">
-                    <v-text-field
-                    :label="input.name_label"
-                    :v-model="input.name_model"
-                    :rules="nameRules"
-                    required
-                    >
-                    </v-text-field>
-                </v-flex>
-            </v-layout>
-        </v-container>
-        <v-container>
            <v-flex><h1>Nos collections</h1></v-flex>
             <v-layout row wrap>
                 <v-flex xl2 lg3 md4 sm6 xs12 v-for="card in cards">
                     <v-card>
-                        <v-card-media :src="card.path" height="200px" :contain="true"></v-card-media>
-                        <v-card-title primary-title :id="card.title" class='white--text'>
-                                <h3 class="headline mb-0">{{ card.title }}</h3>
-<!--                                <div class="container_icones">test</div>-->
-                        </v-card-title>
-<!--
-                            <v-flex>
+                        <v-card-media :src="card.path" height="200px" :contain="true">
+                            <v-flex class="container_icones">
                                 <v-card-media src="/static/icones/add.png" height="50px" :contain="true"></v-card-media>
                                 <v-card-media src="/static/icones/readmore.png" height="50px" :contain="true"></v-card-media>
                             </v-flex>
--->
+                        </v-card-media>
+                        <v-card-title primary-title :id="card.title" class='white--text'>
+                                <h3 class="headline mb-0">{{ card.title }}</h3>
+                        </v-card-title>
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -120,7 +104,8 @@
     }
     /*container icones*/
     div.container_icones{
-       
+        padding-top:5px;
+        padding-left:75%;
     }
     /*couleur de fond pour chaque collection
     selon le document sur le drive (sharepoint/docs/pantone&policy)

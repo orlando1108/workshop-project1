@@ -16,12 +16,12 @@ export default new Router({
       component: HelloWorld
     },
     {
-        path: '/collections', //racine
+        path: '/collections',
         name: 'Collections',
         component: Collections
     },
     {
-        path: '/menu', //racine
+        path: '/menu',
         name: 'menu',
         component: menu
     }
