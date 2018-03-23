@@ -2,14 +2,20 @@
 <v-app> <!--container de l'application c'est nécessaire d'en avoir un -->
     <v-form v-model="valid" ref="form" lazy-validation> <!--container du formulaire-->
         <v-container>
-           <v-flex><h1>Nos collections</h1></v-flex>
+            <v-flex>
+                <h1>Nos collections</h1>
+            </v-flex>
             <v-layout row wrap>
                 <v-flex xl2 lg3 md4 sm6 xs12 v-for="card in cards">
                     <v-card>
                         <v-card-media :src="card.path" height="200px" :contain="true">
                             <v-flex class="container_icones">
-                                <v-card-media src="/static/icones/add.png" height="50px" :contain="true"></v-card-media>
-                                <v-card-media src="/static/icones/readmore.png" height="50px" :contain="true"></v-card-media>
+                                <v-btn fab dark color="indigo">
+                                    <v-icon dark>add</v-icon>
+                                </v-btn>
+                                <v-btn fab dark color="teal">
+                                    <v-icon dark>list</v-icon>
+                                </v-btn>
                             </v-flex>
                         </v-card-media>
                         <v-card-title primary-title :id="card.title" class='white--text'>
