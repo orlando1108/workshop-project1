@@ -1,4 +1,5 @@
 <template> <!--container du template qui va être appelé-->
+
 <v-app> <!--container de l'application c'est nécessaire d'en avoir un -->
     <v-form v-model="valid" ref="form" lazy-validation> <!--container du formulaire-->
         <v-container>
@@ -11,7 +12,7 @@
                         <v-card-media :src="card.path" height="200px" :contain="true">
                             <v-flex class="container_icones">
                                 <v-btn fab dark medium color="pink">
-                                    <v-icon dark @click="alert('test')">favorite</v-icon>
+                                    <v-icon dark>favorite</v-icon>
                                 </v-btn>
                             </v-flex>
                         </v-card-media>
@@ -26,11 +27,7 @@
 </v-app>
 
 </template>
-<script>
-    function add_collections(){
-        alert('ceci est un test');
-    }
-</script>
+
 <script>
     export default {
         data: () => ({
@@ -47,8 +44,7 @@
             cards: [
                 {
                     path: '/static/collections/blackwhite.png',
-                    title: 'Black & White',
-                    name_model:"includeFiles"
+                    title: 'Black & White'
                 },
                 {
                     path: '/static/collections/extrapur.png',

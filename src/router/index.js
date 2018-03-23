@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Collections from '@/components/Collections'
 import menu from '@/components/menu'
-import produits_blackwhite from '@/components/produits_blackwhite'
+import produits from '@/components/produits'
 import handcream_black_tea from '@/components/handcream_black_tea'
 import Vuetify from 'vuetify'
 
@@ -28,9 +28,9 @@ export default new Router({
         component: menu
     },
     {
-        path: '/produits_blackwhite',
-        name: 'produits_blackwhite',
-        component: produits_blackwhite
+        path: '/produits',
+        name: 'produits',
+        component: produits
     },
     {
         path: '/handcream_black_tea',
