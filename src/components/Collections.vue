@@ -7,22 +7,18 @@
             </v-flex>
             <v-layout row wrap>
                 <v-flex xl2 lg3 md4 sm6 xs12 v-for="card in cards">
-                    
                     <v-card>
-
                         <v-flex class="container_icones">
-                                <v-btn fab dark color="indigo">
-                                    <v-icon dark>add</v-icon>
-                                </v-btn>
-                                <v-btn fab dark color="teal">
-                                    <v-icon dark>list</v-icon>
+                                <v-btn fab dark medium color="pink">
+                                    <v-icon dark>favorite</v-icon>
                                 </v-btn>
                             </v-flex>
-
-                        <router-link :to="{name: 'Produits', params: {id:1}}">
+                            
+                         <router-link :to="{name: 'Produits', params: {id:1}}">
                         <v-card-media :src="card.path" height="200px" :contain="true">
                             
-                        </v-card-media>
+                            </v-card-media>
+                       
                         <v-card-title primary-title :id="card.title" class='white--text'>
                                 <h3 class="headline mb-0">{{ card.title }}</h3>
                         </v-card-title>
@@ -36,6 +32,11 @@
 </v-app>
 
 </template>
+<script>
+    function add_collections(){
+        alert('ceci est un test');
+    }
+</script>
 <script>
     export default {
         data: () => ({
@@ -53,33 +54,27 @@
                 {
                     path: '/static/collections/blackwhite.png',
                     title: 'Black & White',
-                    name_model:"includeFiles",
-                    color:"#000000"
+                    name_model:"includeFiles"
                 },
                 {
                     path: '/static/collections/extrapur.png',
-                    title: 'Extra Pur',
-                    color:"62B5E5"
+                    title: 'Extra Pur'
                 },
                 {
                     path: '/static/collections/groomingformen.png',
-                    title: 'Grooming For Men',
-                    color:"62B5E5"
+                    title: 'Grooming For Men'
                 },
                 {
                     path: '/static/collections/karite.jpg',
-                    title: 'Karite',
-                    color:"62B5E5"
+                    title: 'Karite'
                 },
                 {
                     path: '/static/collections/maison_home.png',
-                    title: 'Maison Home',
-                    color:"62B5E5"
+                    title: 'Maison Home'
                 },
                 {
                     path: '/static/collections/vo.png',
-                    title: 'Version Originale',
-                    color:"62B5E5"
+                    title: 'Version Originale'
                 },
             ],
             inputs: [
@@ -118,7 +113,7 @@
     /*container icones*/
     div.container_icones{
         padding-top:5px;
-        padding-left:75%;
+        padding-left:70%;
     }
     /*couleur de fond pour chaque collection
     selon le document sur le drive (sharepoint/docs/pantone&policy)
