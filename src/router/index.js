@@ -32,6 +32,14 @@ export default new Router({
         path: '/menu',
         name: 'Menu',
         component: Menu
-    }
+    },
+    {
+        path: '/hello',
+        name: 'HelloWorld',
+          components: {
+            default: HelloWorld,
+            header: Menu
+        } 
+    },
   ]
 })

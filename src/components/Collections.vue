@@ -9,13 +9,17 @@
             <v-layout row wrap>
                 <v-flex xl2 lg3 md4 sm6 xs12 v-for="card in cards">
                     <v-card>
-                        <v-flex class="container_icones">
-                                <v-btn fab dark medium color="pink">
-                                    <v-icon dark>favorite</v-icon>
-                                </v-btn>
-                            </v-flex>
+                        <v-container class="container_icones">
+                            <v-btn fab dark medium color="indigo" class="btn_add" 
+                               v-on:click="add_products">
+                                <v-icon dark>add</v-icon>
+                            </v-btn>
+                            <v-btn fab dark medium color="pink" class="btn_cancel" v-on:click="delete_products">
+                                <v-icon dark>favorite</v-icon>
+                            </v-btn>
+                        </v-container>
                             
-                         <router-link :to="{name: 'Produits', params: {id:1}}">
+                        <router-link :to="{name: 'Produits', params: {id:1}}">
                         <v-card-media :src="card.path" height="200px" :contain="true">
                             
                             </v-card-media>
@@ -85,9 +89,20 @@
                     name_rules:"emailRules"
                 }
             ],
-            includeFiles: false,
-            enabled: false
-        })
+        }),
+        // Définissez les méthodes de l'objet
+        methods: {
+            add_products: function (event) {
+                // `this` fait référence à l'instance de Vue à l'intérieur de `methods`
+                document.querySelector(".btn_add").style.display="none",
+                document.querySelector(".btn_cancel").style.display="block";
+            },
+            delete_products: function (event) {
+                // `this` fait référence à l'instance de Vue à l'intérieur de `methods`
+                document.querySelector(".btn_add").style.display="block",
+                document.querySelector(".btn_cancel").style.display="none";
+            }
+        }
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -108,9 +123,13 @@
     }
     /*container icones*/
     div.container_icones{
-        padding-top:5px;
-        padding-left:70%;
+        padding-left:75%;
     }
+    /*btn cancel pas afficher par défaut*/
+    button[class^="btn_cancel"]{
+        display: none;
+    }
+    
     /*couleur de fond pour chaque collection
     selon le document sur le drive (sharepoint/docs/pantone&policy)
     https://drive.google.com/drive/folders/1up_xhP11L64vZTDStzCjKSOppzEfP-bO
