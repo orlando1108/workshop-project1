@@ -3,7 +3,7 @@
     <v-form v-model="valid" ref="form" lazy-validation> <!--container du formulaire-->
         <v-container>
             <v-flex>
-                <h1>Nos collections</h1>
+                <h1>Black and white</h1>
             </v-flex>
             <v-layout row wrap>
                 <v-flex xl2 lg3 md4 sm6 xs12 v-for="card in cards">
@@ -11,12 +11,12 @@
                         <v-card-media :src="card.path" height="200px" :contain="true">
                             <v-flex class="container_icones">
                                 <v-btn fab dark medium color="pink">
-                                    <v-icon dark @click="alert('test')">favorite</v-icon>
+                                    <v-icon dark>favorite</v-icon>
                                 </v-btn>
                             </v-flex>
                         </v-card-media>
-                        <v-card-title primary-title :id="card.title" class='white--text'>
-                                <h3 class="headline mb-0">{{ card.title }}</h3>
+                        <v-card-title primary-title :class='card.color'>
+                            <h3 class="headline mb-0">{{ card.name }}</h3>
                         </v-card-title>
                     </v-card>
                 </v-flex>
@@ -34,57 +34,44 @@
 <script>
     export default {
         data: () => ({
-            logos: [
-                {
-                    path: '/static/logos/citta.jpg',
-                    title: 'Città'
-                },
-                {
-                    path: '/static/logos/cdp.png',
-                    title: 'Compagnie de provence'
-                }
-            ],
             cards: [
                 {
-                    path: '/static/collections/blackwhite.png',
-                    title: 'Black & White',
-                    name_model:"includeFiles"
+                    path: '/static/produits/blackandwhite/black-white-hand-cream-black-tea.jpg',
+                    collection: 'Black & White',
+                    color:'black',
+                    name:'Hand cream black tea'
                 },
                 {
-                    path: '/static/collections/extrapur.png',
-                    title: 'Extra Pur'
+                    path: '/static/produits/blackandwhite/black-white-hand-cream-white-tea.jpg',
+                    collection: 'Black & White',
+                    color:'white',
+                    name:'Hand cream white tea'
                 },
                 {
-                    path: '/static/collections/groomingformen.png',
-                    title: 'Grooming For Men'
+                    path: '/static/produits/blackandwhite/black-white-liquid-marseille-soap-black-tea.jpg',
+                    collection: 'Black & White',
+                    color:'black',
+                    name:'Liquid marseille black tea'
                 },
                 {
-                    path: '/static/collections/karite.jpg',
-                    title: 'Karite'
+                    path: '/static/produits/blackandwhite/black-white-liquid-marseille-soap-white-tea.jpg',
+                    collection: 'Black & White',
+                    color:'white',
+                    name:'Liquid marseille white tea'
                 },
                 {
-                    path: '/static/collections/maison_home.png',
-                    title: 'Maison Home'
+                    path: '/static/produits/blackandwhite/black-white-scented-candle-black.jpg',
+                    collection: 'Black & White',
+                    color:'black',
+                    name:'Scented Candle black'
                 },
                 {
-                    path: '/static/collections/vo.png',
-                    title: 'Version Originale'
+                    path: '/static/produits/blackandwhite/black-white-scented-candle-white.jpg',
+                    collection: 'Black & White',
+                    color:'white',
+                    name:'Scented Candle white'
                 },
             ],
-            inputs: [
-                {
-                    name_label:"Nom entreprise",
-                    name_model:"name",
-                    name_rules:"nameRules"
-                },
-                {
-                    name_label:"E-mail entreprise",
-                    name_model:"email",
-                    name_rules:"emailRules"
-                }
-            ],
-            includeFiles: false,
-            enabled: false
         })
     }
 </script>
@@ -103,6 +90,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        height:100px;
     }
     /*container icones*/
     div.container_icones{
@@ -113,22 +101,12 @@
     selon le document sur le drive (sharepoint/docs/pantone&policy)
     https://drive.google.com/drive/folders/1up_xhP11L64vZTDStzCjKSOppzEfP-bO
     */
-    div[id="Black & White"]{
+    div.card__title.black{
         background-color:#231F20;
+        color: white !important;
     }
-    div[id="Extra Pur"]{
-        background-color:#CFD1CE;
-    }
-    div[id="Grooming For Men"]{
-        background-color:#357AA1;
-    }
-    div[id="Karite"]{
-        background-color:#d9c89e;
-    }
-    div[id="Maison Home"]{
-        background-color:#53C1B6;
-    }
-    div[id="Version Originale"]{
-        background-color:#5B5E5F;
+    div.card__title.white{
+        background-color:#ffffff;
+        color: black !important;
     }
 </style>
