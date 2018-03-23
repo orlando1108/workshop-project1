@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "webpack-dev-server --host 0.0.0.0 --public http://app-0f2cb20d-2bb6-415a-9734-035ec93e333f.cleverapps.io",
+    "start": "webpack-dev-server --public --host 0.0.0.0",
     "build": "node build/build.js"
   },
   "dependencies": {
