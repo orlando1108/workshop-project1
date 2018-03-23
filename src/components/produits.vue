@@ -43,7 +43,8 @@
         </v-container>
     </v-form>
 </v-app>
-
+<!-- <transition name="bounce" mode="out-in"> 
+  </transition>-->
 </template>
 <script>
     export default {

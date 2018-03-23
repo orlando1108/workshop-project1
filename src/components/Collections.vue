@@ -7,9 +7,10 @@
             </v-flex>
             <v-layout row wrap>
                 <v-flex xl2 lg3 md4 sm6 xs12 v-for="card in cards">
+                    
                     <v-card>
-                        <v-card-media :src="card.path" height="200px" :contain="true">
-                            <v-flex class="container_icones">
+
+                        <v-flex class="container_icones">
                                 <v-btn fab dark color="indigo">
                                     <v-icon dark>add</v-icon>
                                 </v-btn>
@@ -17,11 +18,17 @@
                                     <v-icon dark>list</v-icon>
                                 </v-btn>
                             </v-flex>
+
+                        <router-link :to="{name: 'Produits', params: {id:1}}">
+                        <v-card-media :src="card.path" height="200px" :contain="true">
+                            
                         </v-card-media>
                         <v-card-title primary-title :id="card.title" class='white--text'>
                                 <h3 class="headline mb-0">{{ card.title }}</h3>
                         </v-card-title>
+                        </router-link>
                     </v-card>
+                    
                 </v-flex>
             </v-layout>
         </v-container>
