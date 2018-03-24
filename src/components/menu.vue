@@ -1,5 +1,5 @@
 <template> <!--container du template qui va être appelé-->
-    <v-app id="inspire">
+    <v-app>
         <v-content>
                     <v-flex xs12 sm12 md12 lg12 xl12>
                         <v-card class="card_form">
@@ -9,7 +9,7 @@
                             </v-toolbar>
                             <v-form v-model="valid" ref="form" lazy-validation>
                                 <v-layout row wrap>
-                                <v-flex offset-xl1 xl5 lg5 md5 sm5 xs12>
+                                <v-flex xl6 lg6 md6 sm6 xs12 containerinput>
                                 <v-text-field
                                 label="Name"
                                 v-model="name"
@@ -17,7 +17,7 @@
                                 :counter="10"
                                 required></v-text-field>
                                 </v-flex>
-                                <v-flex offset-xl1 xl5 lg5 md5 sm5 xs12>
+                                <v-flex xl6 lg6 md6 sm6 xs12 containerinput>
                                 <v-text-field
                                 label="E-mail"
                                 v-model="email"
@@ -26,11 +26,6 @@
                                 </v-flex>
                                 </v-layout>
                                 <v-flex>
-                                <v-checkbox
-                                label="Do you agree?"
-                                v-model="checkbox"
-                                :rules="[v => !!v || 'You must agree to continue!']"
-                                required></v-checkbox>
                                 </v-flex>
                                 <v-btn
                                 @click="submit"
@@ -64,7 +59,6 @@
                 'Item 3',
                 'Item 4'
             ],
-            checkbox: false
         }),
 
         methods: {
@@ -87,7 +81,16 @@
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    input{
+    div.flex.containerinput{
+        padding:5px 20px;
+    }
+    nav[class^="toolbar"]{
         border: 2px solid red;
+        height:100px !important;
+        display: flex;
+        align-items: center;
+    }
+    nav[class^="toolbar"] h2{
+        font-size:1.3em;
     }
 </style>

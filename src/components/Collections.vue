@@ -94,13 +94,14 @@
         methods: {
             add_products: function (title) { //ma fonction mettre l'argument recupere ici le titre entre paranthese
                 //on selectionne le bouton add de la div avec pour id la valeur dans la variable titre
-                document.querySelector("div[id='"+title+"'] .btn_add").style.display="none",
-                    document.querySelector("div[id='"+title+"'] .btn_cancel").style.display="block";
+                document.querySelector("div[id='"+title+"'] .btn_add").style.display="none";
+                document.querySelector("div[id='"+title+"'] .btn_cancel").style.display="block";
                 console.log(title);
+                title="test";
             },
             delete_products: function (title) {
-                document.querySelector("div[id='"+title+"'] .btn_add").style.display="block",
-                    document.querySelector("div[id='"+title+"'] .btn_cancel").style.display="none";
+                document.querySelector("div[id='"+title+"'] .btn_add").style.display="block";
+                document.querySelector("div[id='"+title+"'] .btn_cancel").style.display="none";
                 console.log(title);
             }
         }
