@@ -7,15 +7,14 @@
                 <h1>Nos collections</h1>
             </v-flex>
             <v-layout row wrap>
-                <v-flex xl2 lg3 md4 sm6 xs12 v-for="card in cards" :id="card.title"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
+                <v-flex xl2 lg3 md4 sm6 xs12 v-for="(card,index) in cards" :id="card.title"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
                     <v-card>
                         <v-container class="container_icones">
-                            <v-btn fab dark medium color="indigo" class="btn_add" 
-                            @click="add_products(card.title)"> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection-->
-                                <v-icon dark>add</v-icon>
-                            </v-btn>
-                            <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(card.title)">
+                            <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(card.title,index)" v-if= "card.select">
                                 <v-icon dark>favorite</v-icon>
+                            </v-btn>
+                            <v-btn fab dark medium color="indigo" class="btn_add" @click="add_products(card.title,index)" v-else> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
+                                <v-icon dark>add</v-icon>
                             </v-btn>
                         </v-container>
                             
@@ -41,40 +40,36 @@
 <script>
     export default {
         data: () => ({
-            logos: [
-                {
-                    path: '/static/logos/citta.jpg',
-                    title: 'Città'
-                },
-                {
-                    path: '/static/logos/cdp.png',
-                    title: 'Compagnie de provence'
-                }
-            ],
             cards: [
                 {
                     path: '/static/collections/blackwhite.png',
-                    title: 'Black & White'
+                    title: 'Black & White',
+                    select:false
                 },
                 {
                     path: '/static/collections/extrapur.png',
-                    title: 'Extra Pur'
+                    title: 'Extra Pur',
+                    select:false
                 },
                 {
                     path: '/static/collections/groomingformen.png',
-                    title: 'Grooming For Men'
+                    title: 'Grooming For Men',
+                    select:false
                 },
                 {
                     path: '/static/collections/karite.jpg',
-                    title: 'Karite'
+                    title: 'Karite',
+                    select:false
                 },
                 {
                     path: '/static/collections/maison_home.png',
-                    title: 'Maison Home'
+                    title: 'Maison Home',
+                    select:false
                 },
                 {
                     path: '/static/collections/vo.png',
-                    title: 'Version Originale'
+                    title: 'Version Originale',
+                    select:false
                 },
             ],
             inputs: [
@@ -92,17 +87,13 @@
         }),
         // Définissez les méthodes de l'objet
         methods: {
-            add_products: function (title) { //ma fonction mettre l'argument recupere ici le titre entre paranthese
-                //on selectionne le bouton add de la div avec pour id la valeur dans la variable titre
-                document.querySelector("div[id='"+title+"'] .btn_add").style.display="none";
-                document.querySelector("div[id='"+title+"'] .btn_cancel").style.display="block";
-                console.log(title);
-                title="test";
+            add_products: function (title,index) { //ma fonction mettre l'argument recupere ici le titre entre paranthese
+                console.log(title) //affiche le titre de la collection*/
+                this.cards[index].select = true //change a la valeur de select (pour savoir si une carte est selectionnée) à true
             },
-            delete_products: function (title) {
-                document.querySelector("div[id='"+title+"'] .btn_add").style.display="block";
-                document.querySelector("div[id='"+title+"'] .btn_cancel").style.display="none";
-                console.log(title);
+            delete_products: function (title,index) {
+                console.log(title)
+                this.cards[index].select = false
             }
         }
     }
@@ -127,11 +118,6 @@
     div.container_icones{
         padding-left:75%;
     }
-    /*btn cancel pas afficher par défaut*/
-    button[class^="btn_cancel"]{
-        display: none;
-    }
-    
     /*couleur de fond pour chaque collection
     selon le document sur le drive (sharepoint/docs/pantone&policy)
     https://drive.google.com/drive/folders/1up_xhP11L64vZTDStzCjKSOppzEfP-bO
