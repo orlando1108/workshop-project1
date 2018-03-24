@@ -1,34 +1,30 @@
 <template> <!--container du template qui va être appelé-->
+
 <v-app> <!--container de l'application c'est nécessaire d'en avoir un -->
-    <v-form v-model="valid" ref="form" lazy-validation> <!--container du formulaire-->
-        <v-container>
-            <v-flex>
-                <h1>Liste des produits</h1>
-            </v-flex>
-            <v-layout row wrap>
-                <v-flex xl2 lg3 md4 sm6 xs12 v-for="card in cards">
-                    <v-card>
-                        <v-card-media :src="card.path" height="200px" :contain="true">
-                            <v-flex class="container_icones">
-                                <v-btn fab dark medium color="indigo" class="btn_add" 
-                                       @click="add_products(card.name)"> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection-->
-                                    <v-icon dark>add</v-icon>
-                                </v-btn>
-                                <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(card.name)">
-                                    <v-icon dark>favorite</v-icon>
-                                </v-btn>
-                            </v-flex>
-                        </v-card-media>
-                        <v-card-title primary-title :class='card.collection'>
+    <v-container>
+    <h1>Nos collections</h1>
+        <v-layout row wrap>
+            <v-flex xl2 lg3 md4 sm6 xs12 v-for="(card,index) in cards" :id="card.name"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
+                <v-card>
+                    <v-container class="container_icones">
+                        <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(card.name,index)" v-if= "card.select">
+                            <v-icon dark>favorite</v-icon>
+                        </v-btn>
+                        <v-btn fab dark medium color="indigo" class="btn_add" @click="add_products(card.name,index)" v-else> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
+                            <v-icon dark>add</v-icon>
+                        </v-btn>
+                    </v-container>
+                    <router-link :to="{name: 'Produits', params: {id:1}}">
+                        <v-card-media :src="card.path" height="200px" :contain="true"></v-card-media>
+                        <v-card-title primary-title class='white--text'>
                             <h3 class="headline mb-0">{{ card.name }}</h3>
                         </v-card-title>
-                    </v-card>
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </v-form>
+                    </router-link>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </v-app>
-
 </template>
 <script>
     export default {
@@ -37,47 +33,50 @@
                 {
                     path: '/static/produits/blackandwhite/black-white-hand-cream-black-tea.jpg',
                     collection: 'Black & White',
-                    name:'Hand cream black tea'
+                    name:'Hand cream black tea',
+                    select:false
                 },
                 {
                     path: '/static/produits/blackandwhite/black-white-hand-cream-white-tea.jpg',
                     collection: 'Black & White',
-                    name:'Hand cream white tea'
+                    name:'Hand cream white tea',
+                    select:false
                 },
                 {
                     path: '/static/produits/blackandwhite/black-white-liquid-marseille-soap-black-tea.jpg',
                     collection: 'Black & White',
-                    name:'Liquid marseille black tea'
+                    name:'Liquid marseille black tea',
+                    select:false
                 },
                 {
                     path: '/static/produits/blackandwhite/black-white-liquid-marseille-soap-white-tea.jpg',
                     collection: 'Black & White',
-                    name:'Liquid marseille white tea'
+                    name:'Liquid marseille white tea',
+                    select:false
                 },
                 {
                     path: '/static/produits/blackandwhite/black-white-scented-candle-black.jpg',
                     collection: 'Black & White',
-                    name:'Scented Candle black'
+                    name:'Scented Candle black',
+                    select:false
                 },
                 {
                     path: '/static/produits/blackandwhite/black-white-scented-candle-white.jpg',
                     collection: 'Black & White',
-                    name:'Scented Candle white'
+                    name:'Scented Candle white',
+                    select:false
                 },
             ],
         }),
         // Définissez les méthodes de l'objet
         methods: {
-            add_products: function (name) { //ma fonction mettre l'argument recupere ici le titre entre paranthese
-                //on selectionne le bouton add de la div avec pour id la valeur dans la variable titre
-                document.querySelector("div[id='"+name+"'] .btn_add").style.display="none",
-                    document.querySelector("div[id='"+name+"'] .btn_cancel").style.display="block";
-                console.log(title);
+            add_products: function (name,index) { //ma fonction mettre l'argument recupere ici le titre entre paranthese
+                console.log(name) //affiche le titre de la collection*/
+                this.cards[index].select = true //change a la valeur de select (pour savoir si une carte est selectionnée) à true
             },
-            delete_products: function (name) {
-                document.querySelector("div[id='"+name+"'] .btn_add").style.display="block",
-                    document.querySelector("div[id='"+name+"'] .btn_cancel").style.display="none";
-                console.log(title);
+            delete_products: function (name,index) {
+                console.log(name)
+                this.cards[index].select = false
             }
         }
     }
@@ -100,10 +99,6 @@
         height:100px;
         color: white !important;
         background-color:#607D8B;
-    }
-    /*btn cancel pas afficher par défaut*/
-    button[class^="btn_cancel"]{
-        display: none;
     }
     /*container icones*/
     div.container_icones{
