@@ -4,11 +4,11 @@
                     <v-flex xs12 sm12 md12 lg12 xl12>
                         <v-card class="card_form">
                             <v-toolbar dark color="primary">
+                                <router-link :to="{name: 'Collections'}">
                                 <v-btn color="blue darken-4" dark>
-                                    <router-link :to="{name: 'collections'}">
                                     <v-icon dark left>arrow_back</v-icon>Collections
-                                    </router-link>
                                 </v-btn>
+                                </router-link>
                                 <v-toolbar-title><h2>Informations à remplir</h2></v-toolbar-title>
                                 <v-spacer></v-spacer>
                             </v-toolbar>
@@ -60,9 +60,7 @@
             select: null,
             items: [
                 'Item 1',
-                'Item 2',
-                'Item 3',
-                'Item 4'
+                'Item 2'
             ],
         }),
 
@@ -73,8 +71,6 @@
                     axios.post('/api/submit', {
                         name: this.name,
                         email: this.email,
-                        select: this.select,
-                        checkbox: this.checkbox
                     })
                 }
             },
