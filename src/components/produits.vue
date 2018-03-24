@@ -2,39 +2,39 @@
 
 <v-app> <!--container de l'application c'est nécessaire d'en avoir un -->
     <v-container>
-    <h1>Liste produits</h1>
+        <h1>Liste produits</h1>
         <v-layout row wrap>
-            <v-flex xl2 lg3 md4 sm6 xs12 v-for="(card,index) in cards" :id="card.name" v-if="card.id==name_url"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
-                   <v-card class="infos_cards" v-if="card.showinfo">
-                        <h3 class="pt-3">{{ card.name }}</h3>
-                       <v-flex mt-3>
-                           <p>{{card.description}}</p>
-                           <p>Composition<br>{{card.composition}}</p>
-                       </v-flex>
-                        <v-btn color="blue darken-1" flat  @click="news_products_close(card.name,index)">Close</v-btn>
-                   </v-card>
-                   <v-card v-else>
+            <v-flex xl3 lg4 md4 sm6 xs12 v-for="(card,index) in cards" :id="card.name" v-if="card.id==name_url"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
+                <v-card class="infos_cards" v-if="card.showinfo">
+                    <h3 class="pt-3">{{ card.name }}</h3>
+                    <v-flex mt-3>
+                        <p>{{card.description}}</p>
+                        <p>Composition<br>{{card.composition}}</p>
+    </v-flex>
+                    <v-btn color="blue darken-1" flat  @click="news_products_close(card.name,index)">Close</v-btn>
+    </v-card>
+                <v-card v-else>
                     <v-card-media :src="card.path" height="250px" :contain="true">
                         <v-container class="container_icones">
                             <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(card.name,index)" v-if= "card.select">
                                 <v-icon dark>favorite</v-icon>
-                            </v-btn>
+    </v-btn>
                             <v-btn fab dark medium color="indigo" class="btn_add" @click="add_products(card.name,index)" v-else>
                                 <v-icon dark>add</v-icon>
-                            </v-btn>
+    </v-btn>
                             <v-btn fab dark color="teal" @click="news_products_open(card.name,index)">
                                 <v-icon>info</v-icon>
-                            </v-btn>
-                        </v-container>
-                    </v-card-media>
-                       <v-card-title primary-title class='white--text' @click="news_products_open(card.name,index)">
-                        <h3 class="headline mb-0">{{ card.name }}</h3>
-                    </v-card-title>
-                </v-card>
-            </v-flex>
-        </v-layout>
+    </v-btn>
     </v-container>
-</v-app>
+    </v-card-media>
+                    <v-card-title primary-title class='white--text' @click="news_products_open(card.name,index)">
+                        <h3 class="headline mb-0">{{ card.name }}</h3>
+    </v-card-title>
+    </v-card>
+    </v-flex>
+    </v-layout>
+    </v-container>
+    </v-app>
 </template>
 <script type="text/javascript">
 </script>
