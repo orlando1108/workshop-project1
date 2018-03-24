@@ -15,7 +15,7 @@
                         </v-btn>
                     </v-container>
                     <router-link :to="{name: 'Produits', params: {id:1}}">
-                        <v-card-media :src="card.path" height="200px" :contain="true"></v-card-media>
+                        <v-card-media :src="card.path" height="300px" :contain="true"></v-card-media>
                         <v-card-title primary-title class='white--text'>
                             <h3 class="headline mb-0">{{ card.name }}</h3>
                         </v-card-title>
@@ -95,7 +95,7 @@
     }
     /*container icones*/
     div.container_icones{
-        padding-left:75%;
+        padding-left:70%;
     }
     /*couleur de fond pour chaque collection
     selon le document sur le drive (sharepoint/docs/pantone&policy)

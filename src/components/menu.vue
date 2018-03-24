@@ -4,6 +4,11 @@
                     <v-flex xs12 sm12 md12 lg12 xl12>
                         <v-card class="card_form">
                             <v-toolbar dark color="primary">
+                                <v-btn color="blue darken-4" dark>
+                                    <router-link :to="{name: 'collections'}">
+                                    <v-icon dark left>arrow_back</v-icon>Collections
+                                    </router-link>
+                                </v-btn>
                                 <v-toolbar-title><h2>Informations à remplir</h2></v-toolbar-title>
                                 <v-spacer></v-spacer>
                             </v-toolbar>
