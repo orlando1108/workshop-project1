@@ -1,15 +1,20 @@
 <template> <!--container du template qui va être appelé-->
-    <v-app id="inspire">
-        <v-content>
+    <v-app >
+        <v-content id="menu">
                     <v-flex xs12 sm12 md12 lg12 xl12>
                         <v-card class="card_form">
                             <v-toolbar dark color="primary">
+                                <router-link :to="{name: 'Collections'}">
+                                <v-btn color="blue darken-4" dark>
+                                    <v-icon dark left>arrow_back</v-icon>Collections
+                                </v-btn>
+                                </router-link>
                                 <v-toolbar-title><h2>Informations à remplir</h2></v-toolbar-title>
                                 <v-spacer></v-spacer>
                             </v-toolbar>
                             <v-form v-model="valid" ref="form" lazy-validation>
                                 <v-layout row wrap>
-                                <v-flex offset-xl1 xl5 lg5 md5 sm5 xs12>
+                                <v-flex xl6 lg6 md6 sm6 xs12 containerinput>
                                 <v-text-field
                                 label="Name"
                                 v-model="name"
@@ -17,7 +22,7 @@
                                 :counter="10"
                                 required></v-text-field>
                                 </v-flex>
-                                <v-flex offset-xl1 xl5 lg5 md5 sm5 xs12>
+                                <v-flex xl6 lg6 md6 sm6 xs12 containerinput>
                                 <v-text-field
                                 label="E-mail"
                                 v-model="email"
@@ -26,11 +31,6 @@
                                 </v-flex>
                                 </v-layout>
                                 <v-flex>
-                                <v-checkbox
-                                label="Do you agree?"
-                                v-model="checkbox"
-                                :rules="[v => !!v || 'You must agree to continue!']"
-                                required></v-checkbox>
                                 </v-flex>
                                 <v-btn
                                 @click="submit"
@@ -60,11 +60,8 @@
             select: null,
             items: [
                 'Item 1',
-                'Item 2',
-                'Item 3',
-                'Item 4'
+                'Item 2'
             ],
-            checkbox: false
         }),
 
         methods: {
@@ -74,8 +71,6 @@
                     axios.post('/api/submit', {
                         name: this.name,
                         email: this.email,
-                        select: this.select,
-                        checkbox: this.checkbox
                     })
                 }
             },
@@ -87,7 +82,16 @@
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    input{
+    div.flex.containerinput{
+        padding:5px 20px;
+    }
+    nav[class^="toolbar"]{
         border: 2px solid red;
+        height:100px !important;
+        display: flex;
+        align-items: center;
+    }
+    nav[class^="toolbar"] h2{
+        font-size:1.3em;
     }
 </style>

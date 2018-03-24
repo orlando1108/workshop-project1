@@ -1,55 +1,52 @@
-<template> <!--container du template qui va être appelé-->
+<template> 
 
-<v-app> <!--container de l'application c'est nécessaire d'en avoir un -->
-    <v-form v-model="valid" ref="form" lazy-validation> <!--container du formulaire-->
-        <v-container>
-            <v-flex>
-                <h1>Nos collections</h1>
+<v-app>
+    <v-container>
 
+     <!--   <header-menu></header-menu> -->
 
-            </v-flex>
-            <v-layout row wrap>
-                <v-flex xl2 lg3 md4 sm6 xs12 v-for="collection in fetchCollectionResults" :key="collection.id">
-                    <v-card>
-                        <v-container class="container_icones">
-                            <v-btn fab dark medium color="indigo" class="btn_add" 
-                               v-on:click="add_products">
-                                <v-icon dark>add</v-icon>
-                            </v-btn>
-                            <v-btn fab dark medium color="pink" class="btn_cancel" v-on:click="delete_products">
-                                <v-icon dark>favorite</v-icon>
-                            </v-btn>
-                        </v-container>
-                            
-                        <router-link :to="{name: 'Produits', params: {id_collection:collection.id}}">
-                        <v-card-media :src="collection.img_path" height="200px" :contain="true">
-                            
-                            </v-card-media>
-                       
-                        <v-card-title primary-title :id="collection.nom" class='white--text'>
-                                <h3 class="headline mb-0">{{ collection.nom }}</h3>
+    <h1>Nos collections</h1>
+        <v-layout row wrap>
+            <v-flex xl2 lg3 md4 sm6 xs12 v-for="(collection,index) in fetchCollectionResults" :id="collection.nom" :key="collection.id"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
+                <v-card>
+                    <v-container class="container_icones">
+                        <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(collection.nom,index)" v-if= "collection.select">
+                            <v-icon dark>favorite</v-icon>
+                        </v-btn>
+                        <v-btn fab dark medium color="indigo" class="btn_add" @click="add_products(collection.nom,index)" v-else> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
+                            <v-icon dark>add</v-icon>
+                        </v-btn>
+                    </v-container>
+                    <router-link :to="{name: 'Produits', params: {id_collection:collection.id}}">
+                        <v-card-media :src="collection.img_path" height="300px" :contain="true"></v-card-media>
+                        <v-card-title primary-title class='white--text'>
+                            <h3 class="headline mb-0">{{ collection.nom }}</h3>
                         </v-card-title>
-                        </router-link>
-                    </v-card>
-                    
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </v-form>
+                    </router-link>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </v-app>
 
 </template>
 
 <script>
 import axios from 'axios';
+
 export default {
   
   mounted () {
     this.fetchCollections();
   },
+  computed: {
+    createCollection() {
+      let posts = this.fetchCollectionResults;
 
-  data: () => ({
-    fetchCollectionResults: [],
+    }
+  },
+data: () => ({
+            fetchCollectionResults: [],
     query: "http://localhost:3000/api/collections",
 
     name: "Typeahead",
@@ -61,80 +58,55 @@ export default {
         required: false
       }
     },
-    logos: [
-      {
-        path: "/static/logos/citta.jpg",
-        title: "Città"
-      },
-      {
-        path: "/static/logos/cdp.png",
-        title: "Compagnie de provence"
-      }
-    ],
-    cards: [
-      {
-        path: "/static/collections/blackwhite.png",
-        title: "Black & White"
-      },
-      {
-        path: "/static/collections/extrapur.png",
-        title: "Extra Pur"
-      },
-      {
-        path: "/static/collections/groomingformen.png",
-        title: "Grooming For Men"
-      },
-      {
-        path: "/static/collections/karite.jpg",
-        title: "Karite"
-      },
-      {
-        path: "/static/collections/maison_home.png",
-        title: "Maison Home"
-      },
-      {
-        path: "/static/collections/vo.png",
-        title: "Version Originale"
-      }
-    ],
-    inputs: [
-      {
-        name_label: "Nom entreprise",
-        name_model: "name",
-        name_rules: "nameRules"
-      },
-      {
-        name_label: "E-mail entreprise",
-        name_model: "email",
-        name_rules: "emailRules"
-      }
-    ]
-  }),
-  computed: {
-    createCollection() {
-      let posts = this.fetchCollectionResults;
-  // Définissez les méthodes de l'objet
-    }
-  },
+            cards: [
+                {
+                    path: '/static/collections/blackwhite.png',
+                    name: 'Black & White',
+                    select:false
+                },
+                {
+                    path: '/static/collections/extrapur.png',
+                    name: 'Extra Pur',
+                    select:false
+                },
+                {
+                    path: '/static/collections/groomingformen.png',
+                    name: 'Grooming For Men',
+                    select:false
+                },
+                {
+                    path: '/static/collections/karite.jpg',
+                    name: 'Karite',
+                    select:false
+                },
+                {
+                    path: '/static/collections/maison_home.png',
+                    name: 'Maison Home',
+                    select:false
+                },
+                {
+                    path: '/static/collections/vo.png',
+                    name: 'Version Originale',
+                    select:false
+                },
+            ],
+        }),
   methods: {
-    add_products: function(event) {
-      // `this` fait référence à l'instance de Vue à l'intérieur de `methods`
-      (document.querySelector(".btn_add").style.display = "none"),
-        (document.querySelector(".btn_cancel").style.display = "block");
-    },
-    delete_products: function(event) {
-      // `this` fait référence à l'instance de Vue à l'intérieur de `methods`
-      (document.querySelector(".btn_add").style.display = "block"),
-        (document.querySelector(".btn_cancel").style.display = "none");
-    },
+    add_products: function (name,index) { //ma fonction mettre l'argument recupere ici le titre entre paranthese
+                console.log(name) //affiche le titre de la collection*/
+                this.cards[index].select = true //change a la valeur de select (pour savoir si une carte est selectionnée) à true
+            },
+            delete_products: function (name,index) {
+                console.log(name)
+                this.cards[index].select = false
+            },
     fetchCollections() {
      
         axios.get(this.query, { headers: { 'Access-Control-Allow-Origin': true,
                                            'Content-Type': 'application/json' }})
           .then(response => {
-            //let data = JSON.parse(response);
                 this.fetchCollectionResults = response.data.Collections;
-              //  console.log("DATA   " + JSON.stringify(this.fetchCollectionResults.data.Collections))
+                console.log("DATA   " + JSON.stringify(this.fetchCollectionResults))
                          })
           .catch(error => console.error(error));
     }
@@ -143,63 +115,60 @@ export default {
 
 
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/*espace entre les champs du formulaire*/
-div.container_input {
-  margin: 1% 1%;
-}
-/*espace entre les div des collections*/
-div.card {
-  margin: 3% 3%; /*top/bottom right/left*/
-}
-/*container en bas de l'img*/
-div.card__title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-/*container icones*/
-div.container_icones {
-  padding-left: 75%;
-}
-/*btn cancel pas afficher par défaut*/
-button[class^="btn_cancel"] {
-  display: none;
-}
+
+    /*espace entre les champs du formulaire*/
+    div.container_input{
+        margin:1% 1%;
+    }
+    /*espace entre les div des collections*/
+    div.card{
+        margin:3% 3%; /*top/bottom right/left*/
+    }
+    /*container en bas de l'img*/
+    div.card__title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    /*container icones*/
+    div.container_icones{
+        padding-left:70%;
+    }
+
 
 /*couleur de fond pour chaque collection
     selon le document sur le drive (sharepoint/docs/pantone&policy)
     https://drive.google.com/drive/folders/1up_xhP11L64vZTDStzCjKSOppzEfP-bO
     */
-div[id="BLACK & WHITE"] {
+div[id="BLACK & WHITE"] div.card__title {
   background-color: #231f20;
 }
-div[id="EXTRA PUR"] {
+div[id="EXTRA PUR"] div.card__title { 
   background-color: #cfd1ce;
 }
-div[id="GROOMING FOR MEN"] {
+div[id="GROOMING FOR MEN"] div.card__title {
   background-color: #357aa1;
 }
-div[id="KARITE"] {
+div[id="KARITE"] div.card__title {
   background-color: #d9c89e;
 }
-div[id="MAISON"] {
+div[id="MAISON"] div.card__title {
   background-color: #53c1b6;
 }
-div[id="TERRA"] {
+div[id="TERRA"] div.card__title {
   background-color: #cfd1ce;
 }
-div[id="COLOGNE"] {
+div[id="COLOGNE"] div.card__title {
   background-color: #357aa1;
 }
-div[id="VERSION ORIGINALE"] {
+div[id="VERSION ORIGINALE"] div.card__title {
   background-color: #d9c89e;
 }
-div[id="BASTIDE"] {
+div[id="BASTIDE"] div.card__title {
   background-color: #53c1b6;
 }
-div[id="MUCEM X COMPAGNIE DE PROVENCE"] {
+div[id="MUCEM X COMPAGNIE DE PROVENCE"] div.card__title {
   background-color: #5b5e5f;
 }
 </style>
