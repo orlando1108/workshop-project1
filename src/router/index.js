@@ -21,7 +21,7 @@ export default new Router({
         } 
     },
     {
-      path: '/produits/:id(//d+)',
+      path: '/produits/:id', //nom du parametre dans le router link
       name: 'Produits',
       components: {
         default: Produits,

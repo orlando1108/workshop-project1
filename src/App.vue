@@ -1,18 +1,12 @@
 <template>
-  <div id="app">
-<!--    <img src="./assets/logo.png">-->
-  <div id="header">
-    <h1>header</h1>
+
+<div id="app">
+    <div id="header">
     <router-view name="header"/>
+    </div>
+    <router-view/> 
+</div>
 
-  </div>
-    
-    <h1>main</h1>
-
-  <router-view/>
-  
-   
-  </div>
 </template>
 
 <script>
@@ -28,6 +22,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 0 !important; 
+  padding: 0 !important;
 }
 </style>

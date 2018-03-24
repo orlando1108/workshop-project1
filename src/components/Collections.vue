@@ -6,20 +6,26 @@
         <v-layout row wrap>
             <v-flex xl2 lg3 md4 sm6 xs12 v-for="(card,index) in cards" :id="card.name"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
                 <v-card>
-                    <v-container class="container_icones">
-                        <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(card.name,index)" v-if= "card.select">
-                            <v-icon dark>favorite</v-icon>
-                        </v-btn>
-                        <v-btn fab dark medium color="indigo" class="btn_add" @click="add_products(card.name,index)" v-else> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
-                            <v-icon dark>add</v-icon>
-                        </v-btn>
-                    </v-container>
-                    <router-link :to="{name: 'Produits', params: {id:1}}">
-                        <v-card-media :src="card.path" height="300px" :contain="true"></v-card-media>
+                        <v-card-media :src="card.path" height="250px" :contain="true">
+                            <v-container class="container_icones">
+                                <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(card.name,index)" v-if= "card.select">
+                                    <v-icon dark>favorite</v-icon>
+                                </v-btn>
+                                <v-btn fab dark medium color="indigo" class="btn_add" @click="add_products(card.name,index)" v-else> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
+                                    <v-icon dark>add</v-icon>
+                                </v-btn>
+                                <router-link :to="{name: 'Produits', params: {id:card.id}}">
+                                    <v-btn fab medium dark color="teal" @click="news_products_open(card.name,index)">
+                                        <v-icon>info</v-icon>
+                                    </v-btn>
+                                </router-link>
+                            </v-container>
+                        </v-card-media>
+                        <router-link :to="{name: 'Produits', params: {id:card.id}}">
                         <v-card-title primary-title class='white--text'>
                             <h3 class="headline mb-0">{{ card.name }}</h3>
                         </v-card-title>
-                    </router-link>
+                        </router-link>
                 </v-card>
             </v-flex>
         </v-layout>
@@ -35,32 +41,38 @@
                 {
                     path: '/static/collections/blackwhite.png',
                     name: 'Black & White',
-                    select:false
+                    select:false,
+                    id:1
                 },
                 {
                     path: '/static/collections/extrapur.png',
                     name: 'Extra Pur',
-                    select:false
+                    select:false,
+                    id:2
                 },
                 {
                     path: '/static/collections/groomingformen.png',
                     name: 'Grooming For Men',
-                    select:false
+                    select:false,
+                    id:3
                 },
                 {
                     path: '/static/collections/karite.jpg',
                     name: 'Karite',
-                    select:false
+                    select:false,
+                    id:4
                 },
                 {
                     path: '/static/collections/maison_home.png',
                     name: 'Maison Home',
-                    select:false
+                    select:false,
+                    id:5
                 },
                 {
                     path: '/static/collections/vo.png',
                     name: 'Version Originale',
-                    select:false
+                    select:false,
+                    id:6
                 },
             ],
         }),
@@ -87,13 +99,25 @@
     div.card{
         margin:3% 3%; /*top/bottom right/left*/
     }
+    /*carte ou sont affichés les infos détaillés du produits*/
+    div.infos_cards{
+        height: 400px !important; /*300px img + 100px titre*/
+        overflow-y: auto;
+    }
+    /*titre dans cette div*/
+    div.infos_cards h3{
+        font-size: 24px !important;
+    }
     /*container en bas de l'img*/
     div.card__title{
         display: flex;
         justify-content: center;
         align-items: center;
+        height:100px;
+        color: white !important;
+        background-color:#607D8B;
     }
-    /*container icones*/
+    /*container icones, le css n'influence que la position des boutons*/
     div.container_icones{
         padding-left:70%;
     }
