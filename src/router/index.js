@@ -13,7 +13,7 @@ export default new Router({
   mode:'history',
   routes: [
     {
-        path: '/collections',
+        path: '/',
         name: 'Collections',
         components: {
           default: Collections,
