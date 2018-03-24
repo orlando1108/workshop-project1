@@ -10,7 +10,11 @@
                     <v-card>
                         <v-card-media :src="card.path" height="200px" :contain="true">
                             <v-flex class="container_icones">
-                                <v-btn fab dark medium color="pink">
+                                <v-btn fab dark medium color="indigo" class="btn_add" 
+                                       @click="add_products(card.name)"> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection-->
+                                    <v-icon dark>add</v-icon>
+                                </v-btn>
+                                <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(card.name)">
                                     <v-icon dark>favorite</v-icon>
                                 </v-btn>
                             </v-flex>
@@ -26,11 +30,6 @@
 </v-app>
 
 </template>
-<script>
-    function add_collections(){
-        alert('ceci est un test');
-    }
-</script>
 <script>
     export default {
         data: () => ({
@@ -66,7 +65,21 @@
                     name:'Scented Candle white'
                 },
             ],
-        })
+        }),
+        // Définissez les méthodes de l'objet
+        methods: {
+            add_products: function (name) { //ma fonction mettre l'argument recupere ici le titre entre paranthese
+                //on selectionne le bouton add de la div avec pour id la valeur dans la variable titre
+                document.querySelector("div[id='"+name+"'] .btn_add").style.display="none",
+                    document.querySelector("div[id='"+name+"'] .btn_cancel").style.display="block";
+                console.log(title);
+            },
+            delete_products: function (name) {
+                document.querySelector("div[id='"+name+"'] .btn_add").style.display="block",
+                    document.querySelector("div[id='"+name+"'] .btn_cancel").style.display="none";
+                console.log(title);
+            }
+        }
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -87,6 +100,10 @@
         height:100px;
         color: white !important;
         background-color:#607D8B;
+    }
+    /*btn cancel pas afficher par défaut*/
+    button[class^="btn_cancel"]{
+        display: none;
     }
     /*container icones*/
     div.container_icones{
