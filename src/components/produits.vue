@@ -15,13 +15,13 @@
                 </v-card>
                 <v-card v-else>
                     <v-flex class="container_icones">
-                        <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(collection.nom,index)" v-if= "collection.select">
+                        <v-btn fab dark medium color="pink" class="btn_cancel" v-if= "product.select">
                             <v-icon dark>favorite</v-icon>
                         </v-btn>
-                        <v-btn fab dark medium color="indigo" class="btn_add" @click="add_products(collection.nom,index)" v-else> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
+                        <v-btn fab dark medium color="indigo" class="btn_add" v-else> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
                             <v-icon dark>add</v-icon>
                         </v-btn>
-                        <v-btn fab medium dark color="teal" @click="openCollection(collection.id)">
+                        <v-btn fab medium dark color="teal">
                             <v-icon>info</v-icon>
                         </v-btn>
                 </v-flex>
@@ -51,68 +51,6 @@ import axios from 'axios';
             query: "http://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/produits/",
             name_url:new URL(window.location.href).pathname.replace('/produits/',''),
             //recupere l'id dans l'url en supprimant /produits/ de la chaine de caracteres (etant le path soit /produits/1) affichant l'url
-            cards: [
-                {
-                    path: '/static/produits/blackandwhite/black-white-hand-cream-black-tea.jpg',
-                    collection: 'Black & White',
-                    name:'Hand cream black tea',
-                    description:"Enriched with shea butter, olive oil and vitamin E, this cream takes care of your hands. Its light and non greasy texture is quickly absorbed and leaves the skin soft, comfortable and gently perfumed.Presented in a lacquered glass pump-bottle with a timeless and contemporary design which uses the strength of contrast to create an inspiring graphic universe.",
-                    composition:"Shea butter, Olive oil and Vitamin E.",
-                    select:false,
-                    showinfo:false,
-                    id:1
-                },
-                {
-                    path: '/static/produits/blackandwhite/black-white-hand-cream-white-tea.jpg',
-                    collection: 'Black & White',
-                    name:'Hand cream white tea',
-                    description:"Enriched with shea butter, olive oil and vitamin E, this cream takes care of your hands. Its light and non greasy texture is quickly absorbed and leaves the skin soft, comfortable and gently perfumed.Presented in a lacquered glass pump-bottle with a timeless and contemporary design which uses the strength of contrast to create an inspiring graphic universe.",
-                    composition:"Shea butter, Olive oil and Vitamin E.",
-                    select:false,
-                    showinfo:false,
-                    id:1
-                },
-                {
-                    path: '/static/produits/blackandwhite/black-white-liquid-marseille-soap-black-tea.jpg',
-                    collection: 'Black & White',
-                    name:'Liquid marseille black tea',
-                    description:"Made in a cauldron according to tradition, as does its ancestor, the authentic cube from Marseille, this liquid soap is elaborated with vegetable oils.Naturally glycerined, it gently cleanses the skin.Presented in a lacquered glass pump-bottle with a timeless and contemporary design which uses the strength of contrast to create an inspiring graphic universe.",
-                    composition:"Natural foaming coconut oil.No colorants, no animal fats.",
-                    select:false,
-                    showinfo:false,
-                    id:1
-                },
-                {
-                    path: '/static/produits/blackandwhite/black-white-liquid-marseille-soap-white-tea.jpg',
-                    collection: 'Black & White',
-                    name:'Liquid marseille white tea',
-                    description:"Made in a cauldron according to tradition, as does its ancestor, the authentic cube from Marseille, this liquid soap is elaborated with vegetable oils.Naturally glycerined, it gently cleanses the skin.Presented in a lacquered glass pump-bottle with a timeless and contemporary design which uses the strength of contrast to create an inspiring graphic universe.",
-                    composition:"Natural foaming coconut oil.No colorants, no animal fats.",
-                    select:false,
-                    showinfo:false,
-                    id:1
-                },
-                {
-                    path: '/static/produits/blackandwhite/black-white-scented-candle-black.jpg',
-                    collection: 'Black & White',
-                    name:'Scented Candle black',
-                    description:"True decorative object, this scented candle will bring a touch of contemporary elegance and light to your home. Its cotton wick and blend of mineral and vegetable waxes allow an optimum diffusion of the fragrance. Presented in a lacquered glass, its timeless and contemporary design uses the strength of contrast to create an inspiring graphic universe.",
-                    composition:"Blend of mineral and vegetable waxes. Fragrance. Cotton wick.",
-                    select:false,
-                    showinfo:false,
-                    id:1
-                },
-                {
-                    path: '/static/produits/blackandwhite/black-white-scented-candle-white.jpg',
-                    collection: 'Black & White',
-                    name:'Scented Candle white',
-                    description:"True decorative object, this scented candle will bring a touch of contemporary elegance and light to your home. Its cotton wick and blend of mineral and vegetable waxes allow an optimum diffusion of the fragrance. Presented in a lacquered glass, its timeless and contemporary design uses the strength of contrast to create an inspiring graphic universe.",
-                    composition:"Blend of mineral and vegetable waxes. Fragrance. Cotton wick.",
-                    select:false,
-                    showinfo:false,
-                    id:1
-                },
-            ],
         }),
         // Définissez les méthodes de l'objet
         methods: {
@@ -126,22 +64,22 @@ import axios from 'axios';
                     .catch(error => console.error(error));
 
             },
-            add_products: function (name,index) { //ma fonction mettre l'argument recupere ici le titre entre paranthese
-                console.log(name) //affiche le titre de la collection*/
-                this.cards[index].select = true //change a la valeur de select (pour savoir si une carte est selectionnée) à true
-            },
-            delete_products: function (name,index) {
-                console.log(name)
-                this.cards[index].select = false
-            },
-            news_products_open: function (name,index){
-                console.log(name)
-                this.cards[index].showinfo = true
-            },
-            news_products_close: function (name,index){
-                console.log(name)
-                this.cards[index].showinfo = false
-            }
+//            add_products: function (name,index) {
+//                console.log(name) 
+//                this.cards[index].select = true 
+//            },
+//            delete_products: function (name,index) {
+//                console.log(name)
+//                this.cards[index].select = false
+//            },
+//            news_products_open: function (name,index){
+//                console.log(name)
+//                this.cards[index].showinfo = true
+//            },
+//            news_products_close: function (name,index){
+//                console.log(name)
+//                this.cards[index].showinfo = false
+//            }
         }
     }
 </script>
