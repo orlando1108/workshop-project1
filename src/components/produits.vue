@@ -10,31 +10,31 @@
                     <v-flex mt-3>
                         <p>{{product.description}}</p>
                         <p>Composition<br>{{product.composition}}</p>
-    </v-flex>
+                    </v-flex>
                     <v-btn color="blue darken-1" flat  @click="news_products_close(product.nom,index)">Close</v-btn>
-    </v-card>
+                </v-card>
                 <v-card v-else>
+                    <v-flex class="container_icones">
+                        <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(collection.nom,index)" v-if= "collection.select">
+                            <v-icon dark>favorite</v-icon>
+                        </v-btn>
+                        <v-btn fab dark medium color="indigo" class="btn_add" @click="add_products(collection.nom,index)" v-else> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
+                            <v-icon dark>add</v-icon>
+                        </v-btn>
+                        <v-btn fab medium dark color="teal" @click="openCollection(collection.id)">
+                            <v-icon>info</v-icon>
+                        </v-btn>
+                </v-flex>
                     <v-card-media :src="product.img_path" height="250px" :contain="true">
-                        <v-container class="container_icones">
-                            <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(product.nom,index)" v-if= "product.select">
-                                <v-icon dark>favorite</v-icon>
-                             </v-btn>
-                            <v-btn fab dark medium color="indigo" class="btn_add" @click="add_products(product.nom,index)" v-else>
-                                <v-icon dark>add</v-icon>
-                            </v-btn>
-                            <v-btn fab dark color="teal" @click="news_products_open(product.nom,index)">
-                                <v-icon>info</v-icon>
-                           </v-btn>
-                        </v-container>
-               </v-card-media>
+                    </v-card-media>
                     <v-card-title primary-title class='white--text' @click="news_products_open(product.nom,index)">
                         <h3 class="headline mb-0">{{ product.nom }}</h3>
-    </v-card-title>
-    </v-card>
-    </v-flex>
-    </v-layout>
+                    </v-card-title>
+                </v-card>
+            </v-flex>
+        </v-layout>
     </v-container>
-    </v-app>
+</v-app>
 </template>
 <script type="text/javascript">
 </script>
@@ -175,7 +175,11 @@ import axios from 'axios';
     }
     /*container icones*/
     div.container_icones{
-        padding-top:5px;
-        padding-left:70%;
+        padding-left: 70%;
+        position: absolute; /*les boutons sont placés au dessus de v-card media en
+        les mettant en absolute la div ne prend pas d'espace'*/
+        z-index: 1000; /*permet de cliquer sur les boutons*/
+        display: flex;
+        flex-direction: column !important;
     }
 </style>
