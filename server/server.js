@@ -54,13 +54,14 @@ REST.prototype.connectMysql = function() {
         database : 'bbqgq84xq',
         debug    :  false
     });
-    pool.getConnection(function(err,connection){
+    /*pool.getConnection(function(err,connection){
         if(err) {
           self.stop(err);
         } else {
           self.configureExpress(connection);
         }
-    });
+    });*/
+    self.configureExpress(pool);
 }
 
 REST.prototype.configureExpress = function(connection) {
@@ -72,13 +73,22 @@ REST.prototype.configureExpress = function(connection) {
       var rest_router = new rest(router,connection,md5);
       
       app.use(function (req, res, next) {
-        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-        res.setHeader('Access-Control-Allow-Credentials', true);
-        next();
-      });
-      self.startServer();
+          // Website you wish to allow to connect
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          // Request methods you wish to allow
+          res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+          // Request headers you wish to allow
+          res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization, Content-Type');
+          // Set to true if you need the website to include cookies in the requests sent
+          // to the API (e.g. in case you use sessions)
+          res.setHeader('Access-Control-Allow-Credentials', true);
+          // Pass to next layer of middleware
+          next();
+        
+    
+      
+});
+self.startServer();
 }
 
 REST.prototype.startServer = function() {

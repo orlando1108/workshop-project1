@@ -27,7 +27,9 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         var msg_collections;
         var msg_produits;
         query = mysql.format(query,table);
+        //connection.connect();
         connection.query(query,function(err,rows){
+            
             if(err) {
                 throw err;
             } else {
@@ -46,6 +48,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
                     console.log("id PRODUIT after  " + table);
                     query = "INSERT INTO ??(??,??) VALUES (?,?)";
                     query = mysql.format(query,table);
+                    //connection.connect();
                     connection.query(query,function(err,rows){
                     if(err) {
                         throw err;
@@ -62,6 +65,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
                     table = ["Collection_Commande","id_collection","id_commande",Number(req.body.list_collections[i]),insertedCommande_ID ]; //md5(req.body.password)
                     query = "INSERT INTO ??(??,??) VALUES (?,?)";
                     query = mysql.format(query,table);
+                   // connection.connect();
                     connection.query(query,function(err,rows){
                     if(err) {
                         throw err;
@@ -81,6 +85,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         var query = "INSERT INTO ??(??,??) VALUES (?,?)";
         var table = ["User","email","entreprise",req.body.email, req.body.factory]; //md5(req.body.password)
         query = mysql.format(query,table);
+        connection.connect();
         connection.query(query,function(err,rows){
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query", "Detail": JSON.stringify(err)});
@@ -90,40 +95,47 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         });
     });
 
-    router.get("/",function(req,res){
+   /* router.get("/",function(req,res){
         res.json({"Message" : "Hello World !"});
 
     });
-
+*/
     router.get("/collections",function(req,res){
         var query = "SELECT * FROM ??";
         var table = ["Collection"];
         query = mysql.format(query,table);
+        connection.getConnection(function(err, connection) {
         connection.query(query,function(err,rows){
+            connection.release();
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing MySQL query",  "Detail": JSON.stringify(err)});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Collections" : rows});
             }
         });
+    });
     });
 
     router.get("/produits/:id_collection",function(req,res){
         var query = "SELECT * FROM ?? WHERE ??=?";
         var table = ["Produit","id_collection",req.params.id_collection];
         query = mysql.format(query,table);
+        connection.getConnection(function(err, connection) {
         connection.query(query,function(err,rows){
+            connection.release();
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             } else {
-                res.json({"Error" : false, "Message" : "Success", "Users" : rows});
+                res.json({"Error" : false, "Message" : "Success", "Produits" : rows});
             }
         });
+    });
     });
     router.get("/users/:user_id",function(req,res){
         var query = "SELECT * FROM ?? WHERE ??=?";
         var table = ["user_login","user_id",req.params.user_id];
         query = mysql.format(query,table);
+        connection.connect();
         connection.query(query,function(err,rows){
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});

@@ -17,18 +17,18 @@
                                 <v-btn fab dark medium color="indigo" class="btn_add" @click="add_products(collection.nom,index)" v-else> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
                                     <v-icon dark>add</v-icon>
                                 </v-btn>
-                                <router-link :to="{name: 'Produits', params: {id_collection:collection.id}}">
-                                    <v-btn fab medium dark color="teal" @click="news_products_open(collection.nom,index)">
+                               <!--< <router-link :to="{name: 'Produits', params: {id_collection:collection.id}}">-->
+                                    <v-btn fab medium dark color="teal" @click="openCollection(collection.id)">
                                         <v-icon>info</v-icon>
                                     </v-btn>
-                                </router-link>
+                               <!-- </router-link>-->
                             </v-container>
                         </v-card-media>
-                        <router-link :to="{name: 'Produits', params: {id_collection:collection.id}}">
-                        <v-card-title primary-title class='white--text'>
+                        <!-- <router-link :to="{name: 'Produits', params: {id_collection:collection.id}}">-->
+                        <v-card-title primary-title class='white--text' @click="openCollection(collection.id)">
                             <h3 class="headline mb-0">{{ collection.nom }}</h3>
                         </v-card-title>
-                        </router-link>
+                        <!-- </router-link>-->
                 </v-card>
             </v-flex>
         </v-layout>
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+//
 import axios from 'axios';
 
 export default {
@@ -45,15 +46,15 @@ export default {
   mounted () {
     this.fetchCollections();
   },
-  computed: {
+  /*computed: {
     createCollection() {
       let posts = this.fetchCollectionResults;
 
     }
-  },
+  },*/
 data: () => ({
-            fetchCollectionResults: [],
-    query: "http://localhost:3000/api/collections",
+    fetchCollectionResults: [],
+    query: "http://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/collections",
 
     name: "Typeahead",
     valid: "",
@@ -104,6 +105,9 @@ data: () => ({
             ],
         }),
   methods: {
+    openCollection(id_collection){
+        this.$router.push({ path: 'Produits', query: { idCollection: id_collection}})
+    },
     add_products: function (name,index) { //ma fonction mettre l'argument recupere ici le titre entre paranthese
                 console.log(name) //affiche le titre de la collection*/
                // this.cards[index].select = true //change a la valeur de select (pour savoir si une carte est selectionnée) à true

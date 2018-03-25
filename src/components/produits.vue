@@ -4,31 +4,31 @@
     <v-container>
         <h1>Liste produits</h1>
         <v-layout row wrap>
-            <v-flex xl3 lg4 md4 sm6 xs12 v-for="(card,index) in cards" :id="card.name" v-if="card.id==name_url"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
-                <v-card class="infos_cards" v-if="card.showinfo">
-                    <h3 class="pt-3">{{ card.name }}</h3>
+            <v-flex xl3 lg4 md4 sm6 xs12 v-for="(product,index) in fetchProductResults" :id="product.nom"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
+                <v-card class="infos_cards" v-if="product.showinfo">
+                    <h3 class="pt-3">{{ product.nom }}</h3>
                     <v-flex mt-3>
-                        <p>{{card.description}}</p>
-                        <p>Composition<br>{{card.composition}}</p>
+                        <p>{{product.description}}</p>
+                        <p>Composition<br>{{product.composition}}</p>
     </v-flex>
-                    <v-btn color="blue darken-1" flat  @click="news_products_close(card.name,index)">Close</v-btn>
+                    <v-btn color="blue darken-1" flat  @click="news_products_close(product.nom,index)">Close</v-btn>
     </v-card>
                 <v-card v-else>
-                    <v-card-media :src="card.path" height="250px" :contain="true">
+                    <v-card-media :src="product.img_path" height="250px" :contain="true">
                         <v-container class="container_icones">
-                            <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(card.name,index)" v-if= "card.select">
+                            <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(product.nom,index)" v-if= "product.select">
                                 <v-icon dark>favorite</v-icon>
-    </v-btn>
-                            <v-btn fab dark medium color="indigo" class="btn_add" @click="add_products(card.name,index)" v-else>
+                             </v-btn>
+                            <v-btn fab dark medium color="indigo" class="btn_add" @click="add_products(product.nom,index)" v-else>
                                 <v-icon dark>add</v-icon>
-    </v-btn>
-                            <v-btn fab dark color="teal" @click="news_products_open(card.name,index)">
+                            </v-btn>
+                            <v-btn fab dark color="teal" @click="news_products_open(product.nom,index)">
                                 <v-icon>info</v-icon>
-    </v-btn>
-    </v-container>
-    </v-card-media>
-                    <v-card-title primary-title class='white--text' @click="news_products_open(card.name,index)">
-                        <h3 class="headline mb-0">{{ card.name }}</h3>
+                           </v-btn>
+                        </v-container>
+               </v-card-media>
+                    <v-card-title primary-title class='white--text' @click="news_products_open(product.nom,index)">
+                        <h3 class="headline mb-0">{{ product.nom }}</h3>
     </v-card-title>
     </v-card>
     </v-flex>
@@ -39,8 +39,16 @@
 <script type="text/javascript">
 </script>
 <script>
+import axios from 'axios';
     export default {
+        mounted(){
+              //  console.log("query  "+)
+                this.fetchProducts_inCollection(this.$route.query.idCollection);
+
+            },
         data: () => ({
+            fetchProductResults: [],
+            query: "http://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/produits/",
             name_url:new URL(window.location.href).pathname.replace('/produits/',''),
             //recupere l'id dans l'url en supprimant /produits/ de la chaine de caracteres (etant le path soit /produits/1) affichant l'url
             cards: [
@@ -108,6 +116,16 @@
         }),
         // Définissez les méthodes de l'objet
         methods: {
+            fetchProducts_inCollection(idCollection){
+                axios.get(this.query.concat(idCollection), { headers: { 'Access-Control-Allow-Origin': true,
+                                                                        'Content-Type': 'application/json' }})
+                     .then(response => {
+                        this.fetchProductResults = response.data.Produits;
+                        console.log("DATA   " + JSON.stringify(this.fetchProductResults))
+                         })
+                    .catch(error => console.error(error));
+
+            },
             add_products: function (name,index) { //ma fonction mettre l'argument recupere ici le titre entre paranthese
                 console.log(name) //affiche le titre de la collection*/
                 this.cards[index].select = true //change a la valeur de select (pour savoir si une carte est selectionnée) à true
