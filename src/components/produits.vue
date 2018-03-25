@@ -5,30 +5,30 @@
         <h1>Liste produits</h1>
         <v-layout row wrap>
             <v-flex xl3 lg4 md4 sm6 xs12 v-for="(product,index) in fetchProductResults" :id="product.nom"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
-                <v-card class="infos_cards" v-if="product.showinfo">
-                    <h3 class="pt-3">{{ product.nom }}</h3>
+                <v-card class="infos_cards" v-if= "product.showinfo">
+                    <h3 class="pt-3">{{ product.name }}</h3>
                     <v-flex mt-3>
                         <p>{{product.description}}</p>
                         <p>Composition<br>{{product.composition}}</p>
     </v-flex>
-                    <v-btn color="blue darken-1" flat  @click="news_products_close(product.nom,index)">Close</v-btn>
+                    <v-btn color="blue darken-1" flat  @click="hideDetail(product.name,index)">Close</v-btn>
     </v-card>
                 <v-card v-else>
                     <v-card-media :src="product.img_path" height="250px" :contain="true">
                         <v-container class="container_icones">
-                            <v-btn fab dark medium color="pink" class="btn_cancel" @click="delete_products(product.nom,index)" v-if= "product.select">
+                            <v-btn fab dark medium color="pink" class="btn_cancel" @click="deleteProduct(product.id,index)" v-if= "product.selected">
                                 <v-icon dark>favorite</v-icon>
                              </v-btn>
-                            <v-btn fab dark medium color="indigo" class="btn_add" @click="add_products(product.nom,index)" v-else>
+                            <v-btn fab dark medium color="indigo" class="btn_add" @click="addProduct(product.id,index)" v-else>
                                 <v-icon dark>add</v-icon>
                             </v-btn>
-                            <v-btn fab dark color="teal" @click="news_products_open(product.nom,index)">
+                            <v-btn fab dark color="teal" @click="showDetail(product.name,index)">
                                 <v-icon>info</v-icon>
                            </v-btn>
                         </v-container>
                </v-card-media>
-                    <v-card-title primary-title class='white--text' @click="news_products_open(product.nom,index)">
-                        <h3 class="headline mb-0">{{ product.nom }}</h3>
+                    <v-card-title primary-title class='white--text' @click="showDetail(product.name,index)">
+                        <h3 class="headline mb-0">{{ product.name }}</h3>
     </v-card-title>
     </v-card>
     </v-flex>
@@ -40,13 +40,15 @@
 </script>
 <script>
 import axios from 'axios';
+import STORE from "../store.js";
     export default {
         mounted(){
-              //  console.log("query  "+)
                 this.fetchProducts_inCollection(this.$route.query.idCollection);
+                console.log(" STATE  " + this.state);
 
             },
         data: () => ({
+            state: STORE.state,
             fetchProductResults: [],
             query: "http://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/produits/",
             name_url:new URL(window.location.href).pathname.replace('/produits/',''),
@@ -120,27 +122,51 @@ import axios from 'axios';
                 axios.get(this.query.concat(idCollection), { headers: { 'Access-Control-Allow-Origin': true,
                                                                         'Content-Type': 'application/json' }})
                      .then(response => {
-                        this.fetchProductResults = response.data.Produits;
-                        console.log("DATA   " + JSON.stringify(this.fetchProductResults))
-                         })
-                    .catch(error => console.error(error));
+                  var productList = response.data.Produits.map(product => {
+            let obj = {
+              id: product.id,
+              name: product.nom,
+              description: product.description,
+              composition: '',
+              selected: false,
+              img_path: product.img_path,
+              showInfo: false
+            };
+            return obj;
+          });
+          this.fetchProductResults = productList;
+          //console.log("DATA   " + JSON.stringify(this.fetchCollectionResults))
+        })
+        .catch(error => console.error(error));
 
             },
-            add_products: function (name,index) { //ma fonction mettre l'argument recupere ici le titre entre paranthese
-                console.log(name) //affiche le titre de la collection*/
-                this.cards[index].select = true //change a la valeur de select (pour savoir si une carte est selectionnée) à true
+           isSelected(id) {
+      return this.state.list_products.indexOf(id);
+    },
+    addProduct: function(id, index) {
+
+      if (!(this.isSelected(id) > -1) ) {
+        this.state.list_products.push(id);
+      }
+      this.fetchProductResults[index].selected = true;
+      console.log(this.state.list_products);
+    },
+    deleteProduct: function(id, index) {
+      if (this.isSelected(id) > -1) {
+        this.state.list_products.splice(this.isSelected(id), 1);
+      }
+       this.fetchProductResults[index].selected = false;
+      console.log(this.state.list_products);
+    },
+    showDetail: function (name,index){
+                
+                this.fetchProductResults[index].showInfo = true
+                console.log(this.fetchProductResults[index].showInfo)
             },
-            delete_products: function (name,index) {
+    hideDetail: function (name,index){
                 console.log(name)
-                this.cards[index].select = false
-            },
-            news_products_open: function (name,index){
-                console.log(name)
-                this.cards[index].showinfo = true
-            },
-            news_products_close: function (name,index){
-                console.log(name)
-                this.cards[index].showinfo = false
+                this.fetchProductResults[index].showinfo = false
+                console.log(this.fetchProductResults[index].showInfo)
             }
         }
     }
