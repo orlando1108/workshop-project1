@@ -13,13 +13,15 @@ import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 Vue.config.productionTip = false
 
 
-new Vue({
+var vm = new Vue({
   el: '#app',
   //render: h => h(require('./App')),
   router,
   components: { App },
   template: '<App/>'
 })
+
+global.vm = vm;
 
 
 
