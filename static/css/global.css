@@ -67,7 +67,7 @@ div.card__title {
 /*container boutons*/
 
 div.container_icones {
-    z-index: 1000; /*etre sur de pouvoir cliquer sur le bouton qu'il ne soit pas en dessous de l'image*/
+    z-index: 10; /*etre sur de pouvoir cliquer sur le bouton qu'il ne soit pas en dessous de l'image*/
     padding-left:70%; /*le contenue est parfaite au milieu on le decale pour qu'il soit à droite*/
     display: flex; 
     flex-direction: column; /*contenue en colone */
@@ -86,4 +86,12 @@ div.btn_top_page{
     justify-content: flex-end; /*affichage bouton en fin de ligne*/
     background-color: none !important;
     box-shadow: none !important;
+}
+/*modal lors de l'envoie du message*/
+div.dialog{
+    z-index:100;
+}
+div.dialog span{
+    color: #8BC34A;
+    font-size: 20px;
 }

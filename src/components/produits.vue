@@ -2,7 +2,7 @@
 
 <v-app> <!--container de l'application c'est nécessaire d'en avoir un -->
     <v-container container_body>
-        <h1>Liste produits</h1>
+        <h1 id="top_page">Liste produits</h1>
         <v-layout row wrap layout_cards_products>
             <v-flex xl3 lg4 md4 sm6 xs12 v-for="(product,index) in products" :id="product.nom" :key="product.id"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
                 <v-card class="infos_cards" v-if= "product.showInfo">
@@ -35,12 +35,14 @@
                 </v-card>
             </v-flex>
         </v-layout>
-<!--
+        <!--
+<router-link to="#top_page">
 <v-flex class="btn_top_page">
 <v-btn color="pink" dark large  bottom left fab>
 <v-icon>keyboard_arrow_up</v-icon>
     </v-btn>
     </v-flex>
+    </router-link>
 -->
     </v-container>
 </v-app>

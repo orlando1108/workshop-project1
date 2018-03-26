@@ -19,7 +19,6 @@
                                 label="Name"
                                 v-model="name"
                                 :rules="nameRules"
-                                :counter="10"
                                 required></v-text-field>
                                 </v-flex>
                                 <v-flex xl6 lg6 md6 sm6 xs12 containerinput>
@@ -30,14 +29,25 @@
                                 required></v-text-field>
                                 </v-flex>
                                 </v-layout>
-                                <v-flex>
-                                </v-flex>
                                 <v-btn
                                 @click="submit"
                                 :disabled="!valid">SEND</v-btn>
                                 <v-btn @click="clear">CLEAR</v-btn>
                             </v-form>
                         </v-card>
+                        <v-dialog class="modal_form" v-model="message_send" max-width="500px">
+                            <v-card>
+                                <v-card-title>
+                                    <span light-green>Votre message à bien été envoyée</span>
+                                    <v-spacer></v-spacer>
+                                    <v-menu bottom left>
+                                    </v-menu>
+                                </v-card-title>
+                                <v-card-actions>
+                                    <v-btn color="primary" flat @click.stop="message_send=false">Close</v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
                     </v-flex>
         </v-content>
     </v-app>
@@ -69,6 +79,7 @@ import store from '../store.js'
   }
   },
         data: () => ({
+            message_send:false,
             valid: false,
             nameRules: [
                 v => !!v || 'Name is required',
@@ -90,11 +101,14 @@ import store from '../store.js'
                                 sendOrder: 'sendOrder'
                                 }),
 
+            //function for send
             submit () {
                 if (this.$refs.form.validate()) {
                     this.$refs.form.reset();
                     this.sendOrder();
                     this.$router.push({ path: '/' });
+                    this.message_send = true;
+                    console.log('message envoyée');
                 }
             },
             clear () {

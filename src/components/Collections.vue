@@ -2,7 +2,8 @@
 
 <v-app>
     <v-container container_body>
-    <h1>Our collections</h1>
+    
+    <h1 id="top_page">Our collections</h1>
         <v-layout row wrap layout_cards_products>
             <v-flex xl2 lg3 md4 sm6 xs12 v-for="(collection,index) in collections" :id="collection.name" :key="collection.id"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
                 <v-card>
@@ -28,11 +29,13 @@
             </v-flex>
         </v-layout>
 <!--
+        <router-link to="#top_page">
         <v-flex class="btn_top_page">
             <v-btn color="pink" dark large  bottom left fab>
                 <v-icon>keyboard_arrow_up</v-icon>
             </v-btn>
         </v-flex>
+        </router-link>
 -->
     </v-container>
 </v-app>
