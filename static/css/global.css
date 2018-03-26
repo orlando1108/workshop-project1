@@ -1,0 +1,81 @@
+/*container de l'application (tout le body)*/
+
+#app {
+    background-color: #ECEFF1; /*couleur de fond de l'application*/
+}
+
+
+/*container du header */
+
+div.card_form {
+    margin: 0 !important; /*supprime l'espace généré automatiquement*/
+}
+
+/*container d'une carte produit ou collection*/
+div.layout_cards_products div.card {
+    margin: 3% 3%; /*margin top/bottom right/left espace entre les cartes*/
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); /*permet de rendre l'effet d'une div surélevée grâce à des ombres*/
+    border-radius:20px;
+}
+
+
+/*carte ou sont affichés les infos détaillés du produits*/
+
+div.infos_cards {
+    height: 350px !important; /*300px img + 100px titre*/
+    overflow-y: auto; /*si il y a besoin de scroll (div pas assez grande), la barre de scroll apparait*/
+    padding:0px 10px; /*top/bottom right/left*/
+}
+
+/*titre dans cette div*/
+
+div.infos_cards h3 {
+    font-size: 24px !important; /*taille de la police obliger de mettre !important pour être prioritaire par rapport a vuetify*/
+}
+
+/*titre du produit quand on clique sur le bouton info*/
+
+div.infos_cards h3 span {
+    color: #607D8B; /*span dans un h3 de cette carte, le titre y est */
+}
+
+
+/*container du contenue en dessous du menu*/
+
+@media screen and (max-width:599px) {
+    /*container du contenue en dessous le menu*/
+    div.container_body {
+        margin-top: 60px;
+        /*espace pour éviter une superposition du menu et des produits*/
+    }
+}
+
+
+/*container en bas de l'img*/
+
+div.card__title {
+    /*contenue aligne centré horizontalement et verticalement */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /*taille dd la div contenant le titre du produit*/
+    color: white !important; 
+    background-color: #607D8B;
+}
+
+
+/*container boutons*/
+
+div.container_icones {
+    z-index: 1000; /*etre sur de pouvoir cliquer sur le bouton qu'il ne soit pas en dessous de l'image*/
+    padding-left:70%; /*le contenue est parfaite au milieu on le decale pour qu'il soit à droite*/
+    display: flex; 
+    flex-direction: column; /*contenue en colone */
+    align-items: center; /* aligne le contenue au centre horizontalement et verticalement */
+    justify-content: center;
+    position: absolute;
+    width: 100%; /* le container des boutons prend toute la largeur de l'image*/
+    height: 100%; /* le container des boutons prend toute la hauteur de l'image*/
+    /*les boutons sont placés au dessus de v-card media en
+    les mettant en absolute la div ne prend pas d'espace'*/
+}
