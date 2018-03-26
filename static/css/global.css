@@ -12,9 +12,10 @@ div.card_form {
 }
 
 /*container d'une carte produit ou collection*/
-div.card {
+div.layout_cards_products div.card {
     margin: 3% 3%; /*margin top/bottom right/left espace entre les cartes*/
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); /*permet de rendre l'effet d'une div surélevée grâce à des ombres*/
+    border-radius:20px;
 }
 
 

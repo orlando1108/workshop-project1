@@ -3,7 +3,7 @@
 <v-app>
     <v-container container_body>
     <h1>Our collections</h1>
-        <v-layout row wrap>
+        <v-layout row wrap layout_cards_products>
             <v-flex xl2 lg3 md4 sm6 xs12 v-for="(collection,index) in collections" :id="collection.name" :key="collection.id"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
                 <v-card>
                         <v-card-media :src="collection.img_path" height="250px" :contain="true">

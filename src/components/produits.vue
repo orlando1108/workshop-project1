@@ -3,7 +3,7 @@
 <v-app> <!--container de l'application c'est nécessaire d'en avoir un -->
     <v-container container_body>
         <h1>Liste produits</h1>
-        <v-layout row wrap>
+        <v-layout row wrap layout_cards_products>
             <v-flex xl3 lg4 md4 sm6 xs12 v-for="(product,index) in products" :id="product.nom" :key="product.id"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
                 <v-card class="infos_cards" v-if= "product.showInfo">
                     <h3 class="pt-3"><span>{{product.name}}</span><br>Description</h3>
