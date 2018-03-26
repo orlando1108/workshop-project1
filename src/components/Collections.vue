@@ -1,11 +1,8 @@
 <template> 
 
 <v-app>
-    <v-container>
-
-     <!--   <header-menu></header-menu> -->
-
-    <h1>Nos collections</h1>
+    <v-container container_body>
+    <h1>Our collections</h1>
         <v-layout row wrap>
             <v-flex xl2 lg3 md4 sm6 xs12 v-for="(collection,index) in collections" :id="collection.name" :key="collection.id"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
                 <v-card>
@@ -73,48 +70,8 @@ export default {
 }
 }
 </script>
-<style scoped>
-
-    /*espace entre les champs du formulaire*/
-    div.container_input{
-        margin:1% 1%;
-    }
-    /*espace entre les div des collections*/
-    div.card{
-        margin:3% 3%; /*top/bottom right/left*/
-    }
-    /*carte ou sont affichés les infos détaillés du produits*/
-    div.infos_cards{
-        height: 400px !important; /*300px img + 100px titre*/
-        overflow-y: auto;
-    }
-    /*titre dans cette div*/
-    div.infos_cards h3{
-        font-size: 24px !important;
-    }
-    /*container en bas de l'img*/
-    div.card__title{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height:100px;
-        color: white !important;
-        background-color:#607D8B;
-    }
-    /*container icones, le css n'influence que la position des boutons*/
-    div.container_icones{
-        padding-left: 70%;
-        position: absolute; /*les boutons sont placés au dessus de v-card media en
-        les mettant en absolute la div ne prend pas d'espace'*/
-        z-index: 1000; /*permet de cliquer sur les boutons*/
-        display: flex;
-        flex-direction: column !important;
-    }
-
-/*couleur de fond pour chaque collection
-    selon le document sur le drive (sharepoint/docs/pantone&policy)
-    https://drive.google.com/drive/folders/1up_xhP11L64vZTDStzCjKSOppzEfP-bO
-    */
+<style scoped> /*css appliqué que pour cette vue grâce au mot clé scoped*/
+/*couleur de fond pour chaque collection selon le document sur le drive (sharepoint/docs/pantone&policy) https://drive.google.com/drive/folders/1up_xhP11L64vZTDStzCjKSOppzEfP-bO*/
 div[id="BLACK & WHITE"] div.card__title {
   background-color: #231f20;
 }

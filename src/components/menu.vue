@@ -1,5 +1,5 @@
 <template> <!--container du template qui va être appelé-->
-    <v-app >
+    <v-app style="height:200px"> <!--taille du composant directement défini pour permettre au composant de prendre sa taile réel et pas 100% de la taille de la fenêtre-->
         <v-content id="menu">
                     <v-flex xs12 sm12 md12 lg12 xl12>
                         <v-card class="card_form">
@@ -9,7 +9,7 @@
                                     <v-icon dark left>arrow_back</v-icon>Collections
                                 </v-btn>
                                 </router-link>
-                                <v-toolbar-title><h2>Informations à remplir</h2></v-toolbar-title>
+                                <v-toolbar-title><h2>Personal informations</h2></v-toolbar-title>
                                 <v-spacer></v-spacer>
                             </v-toolbar>
                             <v-form v-model="valid" ref="form" lazy-validation>
@@ -95,15 +95,11 @@ import store from '../store.js'
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    /*input du formulaire*/
     div.flex.containerinput{
         padding:5px 20px;
     }
-    nav[class^="toolbar"]{
-        border: 2px solid red;
-        height:100px !important;
-        display: flex;
-        align-items: center;
-    }
+    /*titre dans le header*/
     nav[class^="toolbar"] h2{
         font-size:1.3em;
     }

@@ -1,12 +1,12 @@
 <template> <!--container du template qui va être appelé-->
 
 <v-app> <!--container de l'application c'est nécessaire d'en avoir un -->
-    <v-container>
+    <v-container container_body>
         <h1>Liste produits</h1>
         <v-layout row wrap>
             <v-flex xl3 lg4 md4 sm6 xs12 v-for="(product,index) in products" :id="product.nom" :key="product.id"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
                 <v-card class="infos_cards" v-if= "product.showInfo">
-                    <h3 class="pt-3">Description</h3>
+                    <h3 class="pt-3"><span>{{product.name}}</span><br>Description</h3>
                     <v-flex mt-3>
                         <p>{{product.description}}</p>
                         <h3 class="pt-3">Composition</h3>
@@ -41,10 +41,10 @@
                </v-card-media>
                     <v-card-title primary-title class='white--text' @click="showDetail(index)">
                         <h3 class="headline mb-0">{{ product.name }}</h3>
-    </v-card-title>
-    </v-card>
-    </v-flex>
-    </v-layout>
+                    </v-card-title>
+                </v-card>
+            </v-flex>
+        </v-layout>
     </v-container>
 </v-app>
 </template>
@@ -77,13 +77,11 @@ import Vuex from 'vuex'
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    /*espace entre les champs du formulaire*/
-    div.container_input{
-        margin:1% 1%;
-    }
     /*espace entre les div des collections*/
     div.card{
         margin:3% 3%; /*top/bottom right/left*/
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        /*permet de rendre l'effet d'une div surélevée grâce à des ombres*/
     }
     /*carte ou sont affichés les infos détaillés du produits*/
     div.infos_cards{
@@ -92,8 +90,19 @@ import Vuex from 'vuex'
         padding: 0px 10px 0px 10px
     }
     /*titre dans cette div*/
-    div.infos_cards h3{
+    div.infos_cards h3 {
         font-size: 24px !important;
+    }
+    /*titre du produits quand on clique sur le bouton info*/
+    div.infos_cards h3 span{
+        color: #607D8B;
+    }
+    /*container du contenue en dessous du menu*/
+    @media screen and (max-width:599px) {
+        /*container du contenue en dessous le menu*/
+        div.container_body{
+        margin-top:60px; /*espace pour éviter une superposition du menu et des produits*/
+        }
     }
     /*container en bas de l'img*/
     div.card__title{
