@@ -9,7 +9,7 @@
                                     <v-icon dark left>arrow_back</v-icon>Collections
                                 </v-btn>
                                 </router-link>
-                                <v-toolbar-title><h2>Informations à remplir</h2></v-toolbar-title>
+                                <v-toolbar-title><h2>Personal Informations</h2></v-toolbar-title>
                                 <v-spacer></v-spacer>
                             </v-toolbar>
                             <v-form v-model="valid" ref="form" lazy-validation>
@@ -45,25 +45,35 @@
 <script>
 //import store from "../store.js";
 import Vuex from 'vuex'
-
 import store from '../store.js'
 
     export default {
         store: store,
-        props: {
-          returnTo: 'Collections'
-  },
   computed:{
-      ...Vuex.mapGetters(['isOnProducts'])
+      ...Vuex.mapGetters(['isOnProducts']),
+      name: {
+    get () {
+      return this.$store.state.retailer_name;
+    },
+    set (value) {
+      this.$store.commit('UPDATE_NAME', value)
+    }
+  },
+  email: {
+    get () {
+      return this.$store.state.retailer_email;
+    },
+    set (value) {
+      this.$store.commit('UPDATE_EMAIL', value)
+    }
+  }
   },
         data: () => ({
-            valid: true,
-            name: '',
+            valid: false,
             nameRules: [
                 v => !!v || 'Name is required',
-                v => (v && v.length <= 10) || 'Name must be less than 10 characters'
+                v => (v && v.length > 1) || 'Name must be greater than 1 characters'
             ],
-            email: '',
             emailRules: [
                 v => !!v || 'E-mail is required',
                 v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
@@ -76,19 +86,20 @@ import store from '../store.js'
         }),
 
         methods: {
-            ...Vuex.mapActions({switchPage:'switchPage'}),
+            ...Vuex.mapActions({switchPage:'switchPage',
+                                sendOrder: 'sendOrder'
+                                }),
 
             submit () {
                 if (this.$refs.form.validate()) {
-                    // Native form submission is not yet supported
-                    axios.post('/api/submit', {
-                        name: this.name,
-                        email: this.email,
-                    })
+                    this.$refs.form.reset();
+                    this.sendOrder();
+                    this.$router.push({ path: '/' });
                 }
             },
             clear () {
                 this.$refs.form.reset()
+                this.valid = false;
             }
         }
     }

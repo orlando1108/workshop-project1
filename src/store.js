@@ -4,21 +4,25 @@ import axios from "axios";
 
 Vue.use(Vuex)
 
-const query_getCollections =  "http://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/collections"
-const query_getProducts =  "http://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/produits/"
- 
+const QUERY_GET_COLLECTIONS =  "http://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/collections"
+const QUERY_GET_PRODUCTS =  "http://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/produits/"
+const QUERY_POST_COMMANDE = "http://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/commande"
+
+const _initialState = {
+   // collections:[],
+     products: [],
+     list_addedCollections:[],
+     list_addedProducts:[],
+    isProductsPage:false
+ }
+
 const state = {
-    
-    collections:[
-
-     ],
-     products: [
-
-     ],
-     list_addedCollections:[
-     ],
-     list_addedProducts:[
-    ],
+    retailer_name:'',
+    retailer_email:'',
+    collections:[],
+     products: [],
+     list_addedCollections:[],
+     list_addedProducts:[],
     isProductsPage:false
  }
 
@@ -27,8 +31,6 @@ const getters = {
      collections: state => state.collections,
      products: state => state.products,
      isOnProducts: state => state.isProductsPage
-     /*isCollectionSelected: (id) => state.list_addedCollections.indexOf(id),
-     isProductSelected: (id) => state.list_addedProducts.indexOf(id)*/
 }
 
 const mutations = {
@@ -100,6 +102,27 @@ const mutations = {
             return
         }
         state.isProductsPage = false;
+    },
+    UPDATE_NAME:(state, value)=>{
+        console.log(value);
+        state.retailer_name = value;
+    },
+    UPDATE_EMAIL:(state, value)=>{
+        console.log(value);
+        state.retailer_email = value;
+    },
+    RESET_STATE:(state) =>{
+        if(state.collections.length > 0){
+            state.collections.map(elem => elem.selected = false);
+
+        }
+        if(state.products.length > 0){
+            state.products.map(elem => elem.selected = false);
+        }
+        state.list_addedCollections =[];
+        state.list_addedProducts =[];
+        state.isProductsPage = false;
+        console.log(state);
     }
 
  }
@@ -128,10 +151,10 @@ const actions = {
     switchPage:(state)=>{
         store.commit('SWITCH_PAGE')
     },
-    fetchCollections:(state)=>{
-        console.log('api 1 !!! ' + JSON.stringify(query_getCollections))
+    fetchCollections:()=>{
+        //console.log('api 1 !!! ' + JSON.stringify(query_getCollections))
         axios
-        .get(query_getCollections, {
+        .get(QUERY_GET_COLLECTIONS, {
           headers: {
             "Access-Control-Allow-Origin": true,
             "Content-Type": "application/json"
@@ -144,7 +167,7 @@ const actions = {
     },
     fetchProducts:(state, idCollection)=>{
         axios
-        .get(query_getProducts.concat(idCollection), {
+        .get(QUERY_GET_PRODUCTS.concat(idCollection), {
           headers: {
             "Access-Control-Allow-Origin": true,
             "Content-Type": "application/json"
@@ -154,6 +177,27 @@ const actions = {
           store.commit('CREATE_PRODUCTS', response.data.Produits)
         })
         .catch(error => console.error(error));
+    },
+    sendOrder:() => {
+
+        console.log(state.retailer_name)
+            console.log( state.retailer_email)
+                console.log(state.list_addedProducts)
+           console.log( state.list_addedCollections)
+
+        axios.post(QUERY_POST_COMMANDE, {
+            name: state.retailer_name,
+            email: state.retailer_email,
+            list_produits: state.list_addedProducts,
+            list_collections: state.list_addedCollections
+          })
+          .then(function (response) {
+           store.commit('RESET_STATE');
+           console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
 }
 let store = new Vuex.Store({

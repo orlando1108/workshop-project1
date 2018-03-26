@@ -47,6 +47,8 @@ import Vuex from 'vuex'
 export default {
     store: store,
   mounted() {
+    /*console.log("MOUTED COLLECTIONS  " + this.collections.length);
+    console.log("MOUTED STORE  " + JSON.stringify(this.$store));*/
     if(!this.collections.length){
       this.getCollections_fromAPI();
     }

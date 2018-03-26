@@ -19,7 +19,6 @@ export default new Router({
           default: Collections,
           header: Menu
         },
-         
     },
     {
       path: '/produits', //nom du parametre dans le router link
