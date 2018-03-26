@@ -27,6 +27,13 @@
                 </v-card>
             </v-flex>
         </v-layout>
+<!--
+        <v-flex class="btn_top_page">
+            <v-btn color="pink" dark large  bottom left fab>
+                <v-icon>keyboard_arrow_up</v-icon>
+            </v-btn>
+        </v-flex>
+-->
     </v-container>
 </v-app>
 

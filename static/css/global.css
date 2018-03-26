@@ -79,3 +79,11 @@ div.container_icones {
     /*les boutons sont placés au dessus de v-card media en
     les mettant en absolute la div ne prend pas d'espace'*/
 }
+/*container du bouton retour vers le haut*/
+div.btn_top_page{
+    margin:25px 0px; /* top/bottom right/left */
+    display: flex;
+    justify-content: flex-end; /*affichage bouton en fin de ligne*/
+    background-color: none !important;
+    box-shadow: none !important;
+}
