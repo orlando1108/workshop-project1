@@ -4,24 +4,25 @@
     <v-container>
         <h1>Liste produits</h1>
         <v-layout row wrap>
-            <v-flex xl3 lg4 md4 sm6 xs12 v-for="(product,index) in fetchProductResults" :id="product.nom"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
-                <v-card class="infos_cards" v-if= "product.showinfo">
-                    <h3 class="pt-3">{{ product.name }}</h3>
+            <v-flex xl3 lg4 md4 sm6 xs12 v-for="(product,index) in products" :id="product.nom" :key="product.id"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
+                <v-card class="infos_cards" v-if= "product.showInfo">
+                    <h3 class="pt-3">Description</h3>
                     <v-flex mt-3>
                         <p>{{product.description}}</p>
-                        <p>Composition<br>{{product.composition}}</p>
-    </v-flex>
-                    <v-btn color="blue darken-1" flat  @click="hideDetail(product.name,index)">Close</v-btn>
-    </v-card>
+                        <h3 class="pt-3">Composition</h3>
+                        <br><p>{{product.composition}}</p>
+                    </v-flex>
+                    <v-btn color="blue darken-1" flat  @click="hideDetail(index)">Close</v-btn>
+                </v-card>
                 <v-card v-else>
                     <v-flex class="container_icones">
-                        <v-btn fab dark medium color="pink" class="btn_cancel" v-if= "product.selected" @click="deleteProduct(product.id,index)">
+                        <v-btn fab dark medium color="pink" class="btn_cancel" v-if= "product.selected" @click="deleteProduct_fromStore({id:product.id,index:index})">
                             <v-icon dark>favorite</v-icon>
                         </v-btn>
-                        <v-btn fab dark medium color="indigo" class="btn_add" v-else @click="addProduct(product.id,index)"> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
+                        <v-btn fab dark medium color="indigo" class="btn_add" v-else @click="addProduct_inStore({id:product.id,index:index})"> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
                             <v-icon dark>add</v-icon>
                         </v-btn>
-                        <v-btn fab medium dark color="teal" @click="showDetail(product.name,index)">
+                        <v-btn fab medium dark color="teal" @click="showDetail(index)">
                             <v-icon>info</v-icon>
                         </v-btn>
                 </v-flex>
@@ -38,7 +39,7 @@
                            </v-btn>
                         </v-container>-->
                </v-card-media>
-                    <v-card-title primary-title class='white--text' @click="showDetail(product.name,index)">
+                    <v-card-title primary-title class='white--text' @click="showDetail(index)">
                         <h3 class="headline mb-0">{{ product.name }}</h3>
     </v-card-title>
     </v-card>
@@ -51,72 +52,26 @@
 </script>
 <script>
 import axios from 'axios';
-import STORE from "../store.js";
+import store from "../store.js";
+import Vuex from 'vuex'
+
     export default {
+        store: store,
         mounted(){
-                this.fetchProducts_inCollection(this.$route.query.idCollection);
-                console.log(" STATE  " + this.state);
-
-            },
-        data: () => ({
-            state: STORE.state,
-            fetchProductResults: [],
-            query: "http://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/produits/",
-            name_url:new URL(window.location.href).pathname.replace('/produits/',''),
-            //recupere l'id dans l'url en supprimant /produits/ de la chaine de caracteres (etant le path soit /produits/1) affichant l'url
-        }),
-        // Définissez les méthodes de l'objet
-        methods: {
-            fetchProducts_inCollection(idCollection){
-                axios.get(this.query.concat(idCollection), { headers: { 'Access-Control-Allow-Origin': true,
-                                                                        'Content-Type': 'application/json' }})
-                     .then(response => {
-                  var productList = response.data.Produits.map(product => {
-            let obj = {
-              id: product.id,
-              name: product.nom,
-              description: product.description,
-              composition: '',
-              selected: false,
-              img_path: product.img_path,
-              showInfo: false
-            };
-            return obj;
-          });
-          this.fetchProductResults = productList;
-          //console.log("DATA   " + JSON.stringify(this.fetchCollectionResults))
-        })
-        .catch(error => console.error(error));
-
-            },
-           isSelected(id) {
-      return this.state.list_products.indexOf(id);
-    },
-    addProduct: function(id, index) {
-
-      if (!(this.isSelected(id) > -1) ) {
-        this.state.list_products.push(id);
-      }
-      this.fetchProductResults[index].selected = true;
-      console.log(this.state.list_products);
-    },
-    deleteProduct: function(id, index) {
-      if (this.isSelected(id) > -1) {
-        this.state.list_products.splice(this.isSelected(id), 1);
-      }
-       this.fetchProductResults[index].selected = false;
-      console.log(this.state.list_products);
-    },
-    showDetail: function (name,index){
-                
-                this.fetchProductResults[index].showInfo = true
-                console.log(this.fetchProductResults[index].showInfo)
-            },
-    hideDetail: function (name,index){
-                console.log(name)
-                this.fetchProductResults[index].showinfo = false
-                console.log(this.fetchProductResults[index].showInfo)
+            if(!this.products.length){
+                this.getProducts_inCollection(this.$route.query.idCollection);
             }
+            },
+        computed:{
+            ...Vuex.mapGetters(['products']),
+        },
+        methods: {
+            ...Vuex.mapActions({
+                        addProduct_inStore: 'addProduct',
+                        deleteProduct_fromStore: 'deleteProduct',
+                        getProducts_inCollection: 'fetchProducts',
+                        showDetail: 'showProductDetail',
+                        hideDetail: 'hideProductDetail'}),
         }
     }
 </script>
@@ -134,6 +89,7 @@ import STORE from "../store.js";
     div.infos_cards{
         height:350px !important; /*300px img + 100px titre*/
         overflow-y: auto;
+        padding: 0px 10px 0px 10px
     }
     /*titre dans cette div*/
     div.infos_cards h3{

@@ -18,7 +18,8 @@ export default new Router({
         components: {
           default: Collections,
           header: Menu
-        } 
+        },
+         
     },
     {
       path: '/produits', //nom du parametre dans le router link
@@ -26,20 +27,8 @@ export default new Router({
       components: {
         default: Produits,
         header: Menu
-      } 
-    },
-    {
-        path: '/menu',
-        name: 'Menu',
-        component: Menu
-    },
-    {
-        path: '/hello',
-        name: 'HelloWorld',
-          components: {
-            default: HelloWorld,
-            header: Menu
-        } 
-    },
+      }
+      
+    }
   ]
 })

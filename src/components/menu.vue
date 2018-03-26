@@ -5,7 +5,7 @@
                         <v-card class="card_form">
                             <v-toolbar dark color="primary">
                                 <router-link :to="{name: 'Collections'}">
-                                <v-btn color="blue darken-4" dark>
+                                <v-btn color="blue darken-4" dark v-if="isOnProducts" @click="switchPage()">
                                     <v-icon dark left>arrow_back</v-icon>Collections
                                 </v-btn>
                                 </router-link>
@@ -34,8 +34,8 @@
                                 </v-flex>
                                 <v-btn
                                 @click="submit"
-                                :disabled="!valid">submit</v-btn>
-                                <v-btn @click="clear">clear</v-btn>
+                                :disabled="!valid">SEND</v-btn>
+                                <v-btn @click="clear">CLEAR</v-btn>
                             </v-form>
                         </v-card>
                     </v-flex>
@@ -43,8 +43,19 @@
     </v-app>
 </template>
 <script>
+//import store from "../store.js";
+import Vuex from 'vuex'
+
+import store from '../store.js'
 
     export default {
+        store: store,
+        props: {
+          returnTo: 'Collections'
+  },
+  computed:{
+      ...Vuex.mapGetters(['isOnProducts'])
+  },
         data: () => ({
             valid: true,
             name: '',
@@ -65,6 +76,8 @@
         }),
 
         methods: {
+            ...Vuex.mapActions({switchPage:'switchPage'}),
+
             submit () {
                 if (this.$refs.form.validate()) {
                     // Native form submission is not yet supported
