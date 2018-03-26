@@ -6,23 +6,20 @@
         <v-layout row wrap>
             <v-flex xl2 lg3 md4 sm6 xs12 v-for="(collection,index) in collections" :id="collection.name" :key="collection.id"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
                 <v-card>
-                    <v-flex class="container_icones">
-                        <v-btn fab dark medium color="pink" class="btn_cancel" @click="deleteCollection_fromStore({id: collection.id,index: index})" v-if= "collection.selected">
+                        <v-card-media :src="collection.img_path" height="250px" :contain="true">
+                            <v-flex class="container_icones"> <!--les images ont un espace blanc a droite 
+                            et a gauche on comble cette espace par des boutons-->
+                                <v-btn fab dark medium color="pink" class="btn_cancel" @click="deleteCollection_fromStore({id: collection.id,index: index})" v-if= "collection.selected">
                                     <v-icon dark>favorite</v-icon>
                                 </v-btn>
                                 <v-btn fab dark medium color="indigo" class="btn_add" @click="addCollection_inStore({id: collection.id,index: index})" v-else> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
                                     <v-icon dark>add</v-icon>
                                 </v-btn>
-                               <!--< <router-link :to="{name: 'Produits', params: {id_collection:collection.id}}">-->
-                                    <v-btn fab medium dark color="teal" @click="openCollection(collection.id)">
-                                        <v-icon>info</v-icon>
-                                    </v-btn>
-                    </v-flex>
-                        <v-card-media :src="collection.img_path" height="250px" :contain="true">
-                            <v-container class="container_icones">
-                                
-                               <!-- </router-link>-->
-                            </v-container>
+                                <!--< <router-link :to="{name: 'Produits', params: {id_collection:collection.id}}">-->
+                                <v-btn fab medium dark color="teal" @click="openCollection(collection.id)">
+                                    <v-icon>info</v-icon>
+                                </v-btn>
+                            </v-flex>
                         </v-card-media>
                         <v-card-title primary-title class='white--text' @click="openCollection(collection.id)">
                             <h3 class="headline mb-0">{{ collection.name }}</h3>

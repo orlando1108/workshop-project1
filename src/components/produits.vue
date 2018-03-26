@@ -15,7 +15,9 @@
                     <v-btn color="blue darken-1" flat  @click="hideDetail(index)">Close</v-btn>
                 </v-card>
                 <v-card v-else>
-                    <v-flex class="container_icones">
+                <v-card-media :src="product.img_path" height="250px" :contain="true">
+                    <v-flex class="container_icones"> <!--les images ont un espace blanc a droite 
+                       et a gauche on comble cette espace par des boutons-->
                         <v-btn fab dark medium color="pink" class="btn_cancel" v-if= "product.selected" @click="deleteProduct_fromStore({id:product.id,index:index})">
                             <v-icon dark>favorite</v-icon>
                         </v-btn>
@@ -25,19 +27,7 @@
                         <v-btn fab medium dark color="teal" @click="showDetail(index)">
                             <v-icon>info</v-icon>
                         </v-btn>
-                </v-flex>
-                    <v-card-media :src="product.img_path" height="250px" :contain="true">
-                       <!-- <v-container class="container_icones">
-                            <v-btn fab dark medium color="pink" class="btn_cancel" @click="deleteProduct(product.id,index)" v-if= "product.selected">
-                                <v-icon dark>favorite</v-icon>
-                             </v-btn>
-                            <v-btn fab dark medium color="indigo" class="btn_add" @click="addProduct(product.id,index)" v-else>
-                                <v-icon dark>add</v-icon>
-                            </v-btn>
-                            <v-btn fab dark color="teal" @click="showDetail(product.name,index)">
-                                <v-icon>info</v-icon>
-                           </v-btn>
-                        </v-container>-->
+                    </v-flex>
                </v-card-media>
                     <v-card-title primary-title class='white--text' @click="showDetail(index)">
                         <h3 class="headline mb-0">{{ product.name }}</h3>
@@ -77,49 +67,4 @@ import Vuex from 'vuex'
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    /*espace entre les div des collections*/
-    div.card{
-        margin:3% 3%; /*top/bottom right/left*/
-        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-        /*permet de rendre l'effet d'une div surélevée grâce à des ombres*/
-    }
-    /*carte ou sont affichés les infos détaillés du produits*/
-    div.infos_cards{
-        height:350px !important; /*300px img + 100px titre*/
-        overflow-y: auto;
-        padding: 0px 10px 0px 10px
-    }
-    /*titre dans cette div*/
-    div.infos_cards h3 {
-        font-size: 24px !important;
-    }
-    /*titre du produits quand on clique sur le bouton info*/
-    div.infos_cards h3 span{
-        color: #607D8B;
-    }
-    /*container du contenue en dessous du menu*/
-    @media screen and (max-width:599px) {
-        /*container du contenue en dessous le menu*/
-        div.container_body{
-        margin-top:60px; /*espace pour éviter une superposition du menu et des produits*/
-        }
-    }
-    /*container en bas de l'img*/
-    div.card__title{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height:100px;
-        color: white !important;
-        background-color:#607D8B;
-    }
-    /*container icones*/
-    div.container_icones{
-        padding-left: 70%;
-        position: absolute; /*les boutons sont placés au dessus de v-card media en
-        les mettant en absolute la div ne prend pas d'espace'*/
-        z-index: 1000; /*permet de cliquer sur les boutons*/
-        display: flex;
-        flex-direction: column !important;
-    }
 </style>
