@@ -38,7 +38,7 @@
                         <v-dialog class="modal_form" v-model="message_send" max-width="500px">
                             <v-card>
                                 <v-card-title>
-                                    <span light-green>Votre message à bien été envoyée</span>
+                                    <span light-green>Vos informations et choix ont bien été envoyés</span>
                                     <v-spacer></v-spacer>
                                     <v-menu bottom left>
                                     </v-menu>

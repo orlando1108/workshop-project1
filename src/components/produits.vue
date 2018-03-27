@@ -35,15 +35,11 @@
                 </v-card>
             </v-flex>
         </v-layout>
-        <!--
-<router-link to="#top_page">
-<v-flex class="btn_top_page">
-<v-btn color="pink" dark large  bottom left fab>
-<v-icon>keyboard_arrow_up</v-icon>
-    </v-btn>
-    </v-flex>
-    </router-link>
--->
+        <v-fab-transition>
+            <v-btn color="pink" class="btn_to_top" fab dark fixed bottom right v-scroll="onScroll" v-show="fab" @click="$vuetify.goTo(target, options)">
+                <v-icon>keyboard_arrow_up</v-icon>
+            </v-btn>
+        </v-fab-transition>
     </v-container>
 </v-app>
 </template>
@@ -53,24 +49,68 @@
 import axios from 'axios';
 import store from "../store.js";
 import Vuex from 'vuex'
+import * as easings from 'vuetify/es5/util/easing-patterns'
 
     export default {
+        data () {
+            return {
+                fab: false,
+                type: 'number',
+                number:0,
+                selector: '#first',
+                selected: 'Button',
+                elements: ['Button', 'Radio group'],
+                duration: 300,
+                offset: 0,
+                easing: 'easeInOutCubic',
+                easings: Object.keys(easings)
+            }
+        },
         store: store,
         mounted(){
+            this.onScroll()
             if(!this.products.length){
                 this.getProducts_inCollection(this.$route.query.idCollection);
             }
-            },
+        },
         computed:{
+            target () {
+                const value = this[this.type]
+                if (!isNaN(value)) return Number(value)
+                else return value
+            },
+            options () {
+                return {
+                    duration: this.duration,
+                    offset: this.offset,
+                    easing: this.easing
+                }
+            },
             ...Vuex.mapGetters(['products']),
         },
         methods: {
             ...Vuex.mapActions({
+                    onScroll () {
+                    if (typeof window === 'undefined') return
+                    const top = window.pageYOffset ||
+                        document.documentElement.offsetTop || 0
+                    this.fab = top >20 /*a partir de combien de px de scroll en hauteur le bouton retour vers le haut apparait*/
+                    },
                         addProduct_inStore: 'addProduct',
                         deleteProduct_fromStore: 'deleteProduct',
                         getProducts_inCollection: 'fetchProducts',
                         showDetail: 'showProductDetail',
                         hideDetail: 'hideProductDetail'}),
+                        onScroll () {
+                        if (typeof window === 'undefined') return
+                        const top = window.pageYOffset ||
+                        document.documentElement.offsetTop || 0
+                        this.fab = top >100 /*a partir de combien de px de scroll en hauteur le bouton retour vers le haut apparait*/
+                    },
+            toTop () {
+                this.$router.push({ hash: '' })
+                window.scrollTo(0, 0)
+            }
         }
     }
 </script>

@@ -67,7 +67,7 @@ div.card__title {
 /*container boutons*/
 
 div.container_icones {
-    z-index: 10; /*etre sur de pouvoir cliquer sur le bouton qu'il ne soit pas en dessous de l'image*/
+    z-index:2; /*etre sur de pouvoir cliquer sur le bouton qu'il ne soit pas en dessous de l'image*/
     padding-left:70%; /*le contenue est parfaite au milieu on le decale pour qu'il soit à droite*/
     display: flex; 
     flex-direction: column; /*contenue en colone */
@@ -89,9 +89,19 @@ div.btn_top_page{
 }
 /*modal lors de l'envoie du message*/
 div.dialog{
-    z-index:100;
+    z-index:4;
 }
+/*texte qui indique que le message à été envoyé avec succès*/
 div.dialog span{
-    color: #8BC34A;
-    font-size: 20px;
+    color: #8BC34A; /*couleur de ce message*/
+    font-size: 20px; /*taille de la police en px*/
+}
+/*bouton retout vers le haut*/
+button.btn_to_top{
+    z-index:3!important; /* place le bouton bien au dessus des éléments (!important:priorité par rapport à vuetify)*/
+    /*z-index ordre de priorité croissant:
+    z-index:2=container des boutons (+,favori,info)
+    z-index:3=button.btn_to_top bouton de retour vers le haut
+    z-index:4=div.dialog modal qui s'affiche lors du succès d'envoie des données via le formulaire
+    */
 }
