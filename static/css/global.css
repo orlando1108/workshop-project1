@@ -18,13 +18,56 @@ div.layout_cards_products div.card {
     border-radius:20px;
 }
 
-
 /*carte ou sont affichés les infos détaillés du produits*/
-
-div.infos_cards {
+div.infos_cards{
     height: 350px !important; /*300px img + 100px titre*/
+}
+
+body div#app::-webkit-scrollbar-track
+{
+    border-radius:20px;
+    background-color:transparent;
+}
+
+body div#app::-webkit-scrollbar
+{
+    width: 12px; /*taille scrollbar*/
+    background-color:transparent;
+}
+
+body div#app::-webkit-scrollbar-thumb
+{
+    border-radius:20px;
+    background-color: #607D8B;
+}
+
+div.infos_cards div.container_for_scrollbar{
+    width:100%;
+    height:95% !important; /*300px img + 100px titre*/
     overflow-y: auto; /*si il y a besoin de scroll (div pas assez grande), la barre de scroll apparait*/
-    padding:0px 10px; /*top/bottom right/left*/
+    padding: 1em;
+}
+/*container pour la scrollbar permet qu'elle soit dans la div contenant la carte et non pas à côté,
+et donc il y a un rectangle qui la contient avec des bords carrés et pas arrondis, ce qui casse le design*/
+
+/*SCROLLBAR PERSO NE MARCHE QUE SUR CHROME*/
+
+div.infos_cards div.container_for_scrollbar::-webkit-scrollbar-track
+{
+    border-radius:20px;
+    background-color:transparent;
+}
+
+div.infos_cards div.container_for_scrollbar::-webkit-scrollbar
+{
+    width: 12px; /*taille scrollbar*/
+    background-color:transparent;
+}
+
+div.infos_cards div.container_for_scrollbar::-webkit-scrollbar-thumb
+{
+    border-radius:20px;
+    background-color: #607D8B;
 }
 
 /*titre dans cette div*/
@@ -67,7 +110,7 @@ div.card__title {
 /*container boutons*/
 
 div.container_icones {
-    z-index: 1000; /*etre sur de pouvoir cliquer sur le bouton qu'il ne soit pas en dessous de l'image*/
+    z-index:2; /*etre sur de pouvoir cliquer sur le bouton qu'il ne soit pas en dessous de l'image*/
     padding-left:70%; /*le contenue est parfaite au milieu on le decale pour qu'il soit à droite*/
     display: flex; 
     flex-direction: column; /*contenue en colone */
@@ -78,4 +121,30 @@ div.container_icones {
     height: 100%; /* le container des boutons prend toute la hauteur de l'image*/
     /*les boutons sont placés au dessus de v-card media en
     les mettant en absolute la div ne prend pas d'espace'*/
+}
+/*container du bouton retour vers le haut*/
+div.btn_top_page{
+    margin:25px 0px; /* top/bottom right/left */
+    display: flex;
+    justify-content: flex-end; /*affichage bouton en fin de ligne*/
+    background-color: none !important;
+    box-shadow: none !important;
+}
+/*modal lors de l'envoie du message*/
+div.dialog{
+    z-index:4;
+}
+/*texte qui indique que le message à été envoyé avec succès*/
+div.dialog span{
+    color: #8BC34A; /*couleur de ce message*/
+    font-size: 20px; /*taille de la police en px*/
+}
+/*bouton retout vers le haut*/
+button.btn_to_top{
+    z-index:3!important; /* place le bouton bien au dessus des éléments (!important:priorité par rapport à vuetify)*/
+    /*z-index ordre de priorité croissant:
+    z-index:2=container des boutons (+,favori,info)
+    z-index:3=button.btn_to_top bouton de retour vers le haut
+    z-index:4=div.dialog modal qui s'affiche lors du succès d'envoie des données via le formulaire
+    */
 }

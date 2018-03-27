@@ -2,7 +2,8 @@
 
 <v-app>
     <v-container container_body>
-    <h1>Our collections</h1>
+    
+    <h1 id="top_page">Our collections</h1>
         <v-layout row wrap layout_cards_products>
             <v-flex xl2 lg3 md4 sm6 xs12 v-for="(collection,index) in collections" :id="collection.name" :key="collection.id"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
                 <v-card>
@@ -27,6 +28,11 @@
                 </v-card>
             </v-flex>
         </v-layout>
+        <v-fab-transition>
+            <v-btn color="pink" class="btn_to_top" fab dark fixed bottom right v-scroll="onScroll" v-show="fab" @click="$vuetify.goTo(target, options)">
+                <v-icon>keyboard_arrow_up</v-icon>
+            </v-btn>
+        </v-fab-transition>
     </v-container>
 </v-app>
 
@@ -37,9 +43,21 @@
 import axios from 'axios'
 import store from '../store.js'
 import Vuex from 'vuex'
+import * as easings from 'vuetify/es5/util/easing-patterns'
 
 export default {
-    store: store,
+    data () {
+        return {
+            fab: false,
+            type: 'number',
+            number:0,
+            duration: 300,
+            offset: 0,
+            easing: 'easeInOutCubic',
+            easings: Object.keys(easings)
+        }
+    },
+  store: store,
   mounted() {
     /*console.log("MOUTED COLLECTIONS  " + this.collections.length);
     console.log("MOUTED STORE  " + JSON.stringify(this.$store));*/
@@ -48,24 +66,39 @@ export default {
     }
   },
   computed:{
+      target () {
+          const value = this[this.type]
+          if (!isNaN(value)) return Number(value)
+          else return value
+      },
+      options () {
+          return {
+              duration: this.duration,
+              offset: this.offset,
+              easing: this.easing
+          }
+      },
       ...Vuex.mapGetters(['collections','isOnProducts'])
   },
-  methods: {
-      ...Vuex.mapActions({
-          addCollection_inStore: 'addCollection',
-          deleteCollection_fromStore: 'deleteCollection',
-          getCollections_fromAPI: 'fetchCollections',
-          switchPage:'switchPage'}),
-
-    openCollection(id_collection) {
-      this.$router.push({
-        path: "Produits",
-        query: { idCollection: id_collection }
-      });
-      this.switchPage();
-
+    methods: {
+        ...Vuex.mapActions({
+            onScroll () {
+                if (typeof window === 'undefined') return
+                const top = window.pageYOffset ||
+                    document.documentElement.offsetTop || 0
+                this.fab = top >20 /*a partir de combien de px de scroll en hauteur le bouton retour vers le haut apparait*/
+            },
+            addCollection_inStore: 'addCollection',
+            deleteCollection_fromStore: 'deleteCollection',
+            getCollections_fromAPI: 'fetchCollections',
+            switchPage:'switchPage'}),
+            openCollection(id_collection) {
+            this.$router.push({
+            path: "Produits",
+            query: { idCollection: id_collection }
+            });
+    this.switchPage();
     },
-
 }
 }
 </script>

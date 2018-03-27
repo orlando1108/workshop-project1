@@ -104,11 +104,9 @@ const mutations = {
         state.isProductsPage = false;
     },
     UPDATE_NAME:(state, value)=>{
-        console.log(value);
         state.retailer_name = value;
     },
     UPDATE_EMAIL:(state, value)=>{
-        console.log(value);
         state.retailer_email = value;
     },
     RESET_STATE:(state) =>{
