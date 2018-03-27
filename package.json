@@ -68,4 +68,3 @@
     "not ie <= 8"
   ]
 }
-//"start": "webpack-dev-server --history-api-fallback --public --host 0.0.0.0 --disable-host-check build/build.js",
