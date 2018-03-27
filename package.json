@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --history-api-fallback --progress --config build/webpack.dev.conf.js",
-    "start": "webpack-dev-server --inline --history-api-fallback  --host 0.0.0.0 --public --progress --config build/webpack.dev.conf.js",
+    "start": "webpack-dev-server --inline --history-api-fallback --public --host 0.0.0.0 --progress --config build/webpack.dev.conf.js",
     "build": "node build/build.js"
   },
   "dependencies": {
