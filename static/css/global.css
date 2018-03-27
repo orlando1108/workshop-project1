@@ -18,13 +18,38 @@ div.layout_cards_products div.card {
     border-radius:20px;
 }
 
-
 /*carte ou sont affichés les infos détaillés du produits*/
-
-div.infos_cards {
+div.infos_cards{
     height: 350px !important; /*300px img + 100px titre*/
+}
+
+
+div.infos_cards div.container_for_scrollbar{
+    width:100%;
+    height:95% !important; /*300px img + 100px titre*/
     overflow-y: auto; /*si il y a besoin de scroll (div pas assez grande), la barre de scroll apparait*/
-    padding:0px 10px; /*top/bottom right/left*/
+    padding: 1em;
+}
+/*container pour la scrollbar permet qu'elle soit dans la div contenant la carte et non pas à côté,
+et donc il y a un rectangle qui la contient avec des bords carrés et pas arrondis, ce qui casse le design*/
+/*SCROLLBAR*/
+
+div.infos_cards div.container_for_scrollbar::-webkit-scrollbar-track
+{
+    border-radius:20px;
+    background-color:transparent;
+}
+
+div.infos_cards div.container_for_scrollbar::-webkit-scrollbar
+{
+    width: 12px; /*taille scrollbar*/
+    background-color:transparent;
+}
+
+div.infos_cards div.container_for_scrollbar::-webkit-scrollbar-thumb
+{
+    border-radius:20px;
+    background-color: #607D8B;
 }
 
 /*titre dans cette div*/

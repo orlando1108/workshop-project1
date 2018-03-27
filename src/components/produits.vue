@@ -6,6 +6,7 @@
         <v-layout row wrap layout_cards_products>
             <v-flex xl3 lg4 md4 sm6 xs12 v-for="(product,index) in products" :id="product.nom" :key="product.id"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
                 <v-card class="infos_cards" v-if= "product.showInfo">
+                   <div class="container_for_scrollbar">
                     <h3 class="pt-3"><span>{{product.name}}</span><br>Description</h3>
                     <v-flex mt-3>
                         <p>{{product.description}}</p>
@@ -13,6 +14,7 @@
                         <br><p>{{product.composition}}</p>
                     </v-flex>
                     <v-btn color="blue darken-1" flat  @click="hideDetail(index)">Close</v-btn>
+                    </div>
                 </v-card>
                 <v-card v-else>
                 <v-card-media :src="product.img_path" height="250px" :contain="true">
@@ -57,9 +59,6 @@ import * as easings from 'vuetify/es5/util/easing-patterns'
                 fab: false,
                 type: 'number',
                 number:0,
-                selector: '#first',
-                selected: 'Button',
-                elements: ['Button', 'Radio group'],
                 duration: 300,
                 offset: 0,
                 easing: 'easeInOutCubic',
