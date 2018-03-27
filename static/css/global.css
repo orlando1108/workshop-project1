@@ -23,6 +23,23 @@ div.infos_cards{
     height: 350px !important; /*300px img + 100px titre*/
 }
 
+body div#app::-webkit-scrollbar-track
+{
+    border-radius:20px;
+    background-color:transparent;
+}
+
+body div#app::-webkit-scrollbar
+{
+    width: 12px; /*taille scrollbar*/
+    background-color:transparent;
+}
+
+body div#app::-webkit-scrollbar-thumb
+{
+    border-radius:20px;
+    background-color: #607D8B;
+}
 
 div.infos_cards div.container_for_scrollbar{
     width:100%;
@@ -32,7 +49,8 @@ div.infos_cards div.container_for_scrollbar{
 }
 /*container pour la scrollbar permet qu'elle soit dans la div contenant la carte et non pas à côté,
 et donc il y a un rectangle qui la contient avec des bords carrés et pas arrondis, ce qui casse le design*/
-/*SCROLLBAR*/
+
+/*SCROLLBAR PERSO NE MARCHE QUE SUR CHROME*/
 
 div.infos_cards div.container_for_scrollbar::-webkit-scrollbar-track
 {

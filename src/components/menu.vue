@@ -1,9 +1,9 @@
 <template> <!--container du template qui va être appelé-->
-    <v-app style="height:200px"> <!--taille du composant directement défini pour permettre au composant de prendre sa taile réel et pas 100% de la taille de la fenêtre-->
+<v-app style="height:200px"> <!--taille du composant directement défini pour permettre au composant de prendre sa taile réel et pas 100% de la taille de la fenêtre-->
         <v-content id="menu">
                     <v-flex xs12 sm12 md12 lg12 xl12>
                         <v-card class="card_form">
-                            <v-toolbar dark color="primary">
+                            <v-toolbar dark id="toolbar_menu" color="indigo">
                                 <router-link :to="{name: 'Collections'}">
                                 <v-btn color="blue darken-4" dark v-if="isOnProducts" @click="switchPage()">
                                     <v-icon dark left>arrow_back</v-icon>Collections
