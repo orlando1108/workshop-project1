@@ -71,7 +71,8 @@ const mutations = {
               id: c.id,
               name: c.nom,
               selected: false,
-              img_path: c.img_path
+              img_path: c.img_path,
+              img_link: c.img_link
             };
             return obj;
           });
@@ -86,7 +87,8 @@ const mutations = {
               composition: p.composition,
               selected: false,
               img_path: p.img_path,
-              showInfo: false
+              showInfo: false,
+              img_link: p.img_link
             };
             return obj;
           });

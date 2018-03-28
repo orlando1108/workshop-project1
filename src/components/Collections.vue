@@ -13,7 +13,7 @@
                                 <v-btn fab dark medium color="pink" class="btn_cancel" @click="deleteCollection_fromStore({id: collection.id,index: index})" v-if= "collection.selected">
                                     <v-icon dark>favorite</v-icon>
                                 </v-btn>
-                                <v-btn fab dark medium color="indigo" class="btn_add" @click="addCollection_inStore({id: collection.id, name: collection.name, imgpath: collection.img_path,index: index})" v-else> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
+                                <v-btn fab dark medium color="indigo" class="btn_add" @click="addCollection_inStore({id: collection.id, name: collection.name, imgpath: collection.img_path, link:collection.img_link, index: index})" v-else> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
                                     <v-icon dark>add</v-icon>
                                 </v-btn>
                                 <!--< <router-link :to="{name: 'Produits', params: {id_collection:collection.id}}">-->
