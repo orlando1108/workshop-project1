@@ -36,9 +36,9 @@
                             </v-form>
                         </v-card>
                         <v-dialog class="modal_form" v-model="message_send" max-width="500px">
-                            <v-card>
+                            <v-card class="card_dialog">
                                 <v-card-title>
-                                    <span light-green>Vos informations et choix ont bien été envoyés</span>
+                                    <span light-green>Your information and choices have been sent successfully</span>
                                     <v-spacer></v-spacer>
                                     <v-menu bottom left>
                                     </v-menu>
@@ -79,7 +79,7 @@ import store from '../store.js'
   }
   },
         data: () => ({
-            message_send:false,
+            message_send:true,
             valid: false,
             nameRules: [
                 v => !!v || 'Name is required',

@@ -136,7 +136,7 @@ div.dialog{
 }
 /*texte qui indique que le message à été envoyé avec succès*/
 div.dialog span{
-    color: #8BC34A; /*couleur de ce message*/
+    color:#69F0AE; /*couleur de ce message*/
     font-size: 20px; /*taille de la police en px*/
 }
 /*bouton retout vers le haut*/
@@ -147,4 +147,18 @@ button.btn_to_top{
     z-index:3=button.btn_to_top bouton de retour vers le haut
     z-index:4=div.dialog modal qui s'affiche lors du succès d'envoie des données via le formulaire
     */
+}
+/*container de la modal*/
+div.dialog{
+    background-color:transparent;
+    border-radius:10px;
+}
+/*MODAL*/
+div.card_dialog{
+    border-radius:10px;
+}
+div.card_dialog div.card__actions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
