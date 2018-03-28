@@ -68,9 +68,9 @@ import * as easings from 'vuetify/es5/util/easing-patterns'
         store: store,
         mounted(){
             this.onScroll();
-            if(this.$route.query.idCollection !== this.products.length){
+            /*if(!this.products.length){*/
                 this.getProducts_inCollection(this.$route.query.idCollection);
-            }
+            
         },
         computed:{
             target () {
