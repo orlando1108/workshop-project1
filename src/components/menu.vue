@@ -79,7 +79,7 @@ import store from '../store.js'
   }
   },
         data: () => ({
-            message_send:true,
+            message_send:false,
             valid: false,
             nameRules: [
                 v => !!v || 'Name is required',
