@@ -4,9 +4,9 @@ import axios from "axios";
 
 Vue.use(Vuex)
 
-const QUERY_GET_COLLECTIONS =  "http://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/collections"
-const QUERY_GET_PRODUCTS =  "http://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/produits/"
-const QUERY_POST_COMMANDE = "http://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/commande"
+const QUERY_GET_COLLECTIONS =  "https://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/collections"
+const QUERY_GET_PRODUCTS =  "https://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/produits/"
+const QUERY_POST_COMMANDE = "https://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/commande"
 
 const _initialState = {
    // collections:[],
@@ -121,6 +121,9 @@ const mutations = {
         state.list_addedProducts =[];
         state.isProductsPage = false;
         console.log(state);
+    },
+    CLEAR_PRODUCTS:()=>{
+        store.products = [];
     }
 
  }
@@ -177,17 +180,11 @@ const actions = {
         .catch(error => console.error(error));
     },
     sendOrder:() => {
-
-        console.log(state.retailer_name)
-            console.log( state.retailer_email)
-                console.log(state.list_addedProducts)
-           console.log( state.list_addedCollections)
-
         axios.post(QUERY_POST_COMMANDE, {
-            name: state.retailer_name,
+            firstName: state.retailer_name,
             email: state.retailer_email,
-            list_produits: state.list_addedProducts,
-            list_collections: state.list_addedCollections
+            listProducts: state.list_addedProducts,
+            listCollections: state.list_addedCollections
           })
           .then(function (response) {
            store.commit('RESET_STATE');
@@ -196,6 +193,9 @@ const actions = {
           .catch(function (error) {
             console.log(error);
           });
+    },
+    clearProducts:() => {
+        store.commit('CLEAR_PRODUCTS');
     }
 }
 let store = new Vuex.Store({

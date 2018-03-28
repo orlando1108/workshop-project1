@@ -97,6 +97,8 @@ export default {
             path: "Produits",
             query: { idCollection: id_collection }
             });
+
+            console.log('ID  '+ id_collection);
     this.switchPage();
     },
 }

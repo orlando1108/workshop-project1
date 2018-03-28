@@ -2,7 +2,7 @@
 
 <v-app> <!--container de l'application c'est nécessaire d'en avoir un -->
     <v-container container_body>
-        <h1 id="top_page">Liste produits</h1>
+        <h1 id="top_page">Products List</h1>
         <v-layout row wrap layout_cards_products>
             <v-flex xl3 lg4 md4 sm6 xs12 v-for="(product,index) in products" :id="product.nom" :key="product.id"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
                 <v-card class="infos_cards" v-if= "product.showInfo">
@@ -67,8 +67,8 @@ import * as easings from 'vuetify/es5/util/easing-patterns'
         },
         store: store,
         mounted(){
-            this.onScroll()
-            if(!this.products.length){
+            this.onScroll();
+            if(this.$route.query.idCollection !== this.products.length){
                 this.getProducts_inCollection(this.$route.query.idCollection);
             }
         },
@@ -99,7 +99,8 @@ import * as easings from 'vuetify/es5/util/easing-patterns'
                         deleteProduct_fromStore: 'deleteProduct',
                         getProducts_inCollection: 'fetchProducts',
                         showDetail: 'showProductDetail',
-                        hideDetail: 'hideProductDetail'}),
+                        hideDetail: 'hideProductDetail',
+                        clearProducts: 'clearProducts'}),
                         onScroll () {
                         if (typeof window === 'undefined') return
                         const top = window.pageYOffset ||
@@ -110,7 +111,12 @@ import * as easings from 'vuetify/es5/util/easing-patterns'
                 this.$router.push({ hash: '' })
                 window.scrollTo(0, 0)
             }
-        }
+            
+        },
+        beforeRouteLeave (to, from, next) {
+                this.clearProducts();
+    next();
+  }
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
