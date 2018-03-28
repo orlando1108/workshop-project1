@@ -47,17 +47,22 @@ const mutations = {
            }
     },
      ADD_COLLECTION: (state, payload) =>{
-        if(!(state.list_addedCollections.indexOf(payload.id) > -1)){
+        if(!state.collections[payload.index].selected){
             state.list_addedCollections.push(payload);
             state.collections[payload.index].selected = true;
         }
         
     },
     DELETE_COLLECTION: (state, payload) =>{
-       if((state.list_addedCollections.indexOf(payload.id) > -1)){
+       /* console.log( state.collections[payload.index].id);
+        console.log('etat ' + state.list_addedCollections.indexOf(payload.id) > -1)*/
+        //state.collections[payload.index].selected;
+       if(state.collections[payload.index].selected){
         state.list_addedCollections.splice(state.list_addedCollections.indexOf(payload.id), 1);
         state.collections[payload.index].selected = false;
        }
+       /* console.log('selected  '+ state.collections[payload.index].selected)       }
+       console.log( state.collections[payload.index].selected);*/
     },
     SHOW_PRODUCT_DETAIL:(state, index) =>{
         state.products[index].showInfo = true

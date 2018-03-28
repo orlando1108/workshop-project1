@@ -8,7 +8,10 @@
 </template>
 
 <script>
+import Alerte from '@/components/Alerte'
+
 export default {
+  components:{Alerte},
   name: 'App'
 }
 </script>

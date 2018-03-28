@@ -35,6 +35,7 @@
                                 <v-btn @click="clear">CLEAR</v-btn>
                             </v-form>
                         </v-card>
+                        <!-- <transition name="fade">-->
                         <v-dialog class="modal_form" v-model="message_send" max-width="500px">
                             <v-card class="card_dialog">
                                 <v-card-title>
@@ -48,6 +49,7 @@
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
+                       <!--  <transition> -->
                     </v-flex>
         </v-content>
     </v-app>
@@ -58,6 +60,12 @@ import Vuex from 'vuex'
 import store from '../store.js'
 
     export default {
+
+    methods: {
+        toggle: function(){
+            this.visible = !this.visible;
+        }
+    },
         store: store,
   computed:{
       ...Vuex.mapGetters(['isOnProducts']),
@@ -81,6 +89,7 @@ import store from '../store.js'
   }
   },
         data: () => ({
+            visible:true,
             message_send:false,
             valid: false,
             nameRules: [

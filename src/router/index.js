@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Collections from '@/components/Collections'
 import Produits from '@/components/Produits'
 import Menu from '@/components/Menu'
+
 import Vuetify from 'vuetify'
 
 Vue.use(Vuetify)
