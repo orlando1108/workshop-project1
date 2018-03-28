@@ -35,9 +35,8 @@ const getters = {
 
 const mutations = {
      ADD_PRODUCT: (state, payload) =>{
-        console.log(payload);
         if(!(state.list_addedProducts.indexOf(payload.id) > -1)){
-            state.list_addedProducts.push(payload.id);
+            state.list_addedProducts.push(payload);
             state.products[payload.index].selected = true;
         }
      },
@@ -48,9 +47,8 @@ const mutations = {
            }
     },
      ADD_COLLECTION: (state, payload) =>{
-        console.log(payload);
         if(!(state.list_addedCollections.indexOf(payload.id) > -1)){
-            state.list_addedCollections.push(payload.id);
+            state.list_addedCollections.push(payload);
             state.collections[payload.index].selected = true;
         }
         
@@ -78,7 +76,6 @@ const mutations = {
             return obj;
           });
           state.collections = collectionList;
-        //  this.fetchCollectionResults = collectionList;
     },
     CREATE_PRODUCTS:(state, products)=>{
         let productList = products.map(p => {
@@ -94,7 +91,6 @@ const mutations = {
             return obj;
           });
           state.products = productList;
-        //  this.fetchCollectionResults = collectionList;
     },
     SWITCH_PAGE:()=>{
         if(!state.isProductsPage){
@@ -120,7 +116,7 @@ const mutations = {
         state.list_addedCollections =[];
         state.list_addedProducts =[];
         state.isProductsPage = false;
-        console.log(state);
+        //console.log(state);
     },
     CLEAR_PRODUCTS:()=>{
         store.products = [];
@@ -180,7 +176,10 @@ const actions = {
         .catch(error => console.error(error));
     },
     sendOrder:() => {
-        axios.post(QUERY_POST_COMMANDE, {
+        //QUERY_POST_COMMANDE
+        console.log('retailer 2 '+state.retailer_email);
+        console.log('retailer 2 '+state.retailer_name);
+        axios.post('http://localhost:3000/api/email', {
             firstName: state.retailer_name,
             email: state.retailer_email,
             listProducts: state.list_addedProducts,

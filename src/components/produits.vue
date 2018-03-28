@@ -2,7 +2,7 @@
 
 <v-app> <!--container de l'application c'est nécessaire d'en avoir un -->
     <v-container container_body>
-        <h1 id="top_page">Products List</h1>
+        <h1 id="top_page">Products</h1>
         <v-layout row wrap layout_cards_products>
             <v-flex xl3 lg4 md4 sm6 xs12 v-for="(product,index) in products" :id="product.nom" :key="product.id"> <!--la div contenant chaque collection a pour id le nom de sa collection-->
                 <v-card class="infos_cards" v-if= "product.showInfo">
@@ -23,7 +23,7 @@
                         <v-btn fab dark medium color="pink" class="btn_cancel" v-if= "product.selected" @click="deleteProduct_fromStore({id:product.id,index:index})">
                             <v-icon dark>favorite</v-icon>
                         </v-btn>
-                        <v-btn fab dark medium color="indigo" class="btn_add" v-else @click="addProduct_inStore({id:product.id,index:index})"> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
+                        <v-btn fab dark medium color="indigo" class="btn_add" v-else @click="addProduct_inStore({id:product.id, name: product.name, imgpath:product.img_path, index:index})"> <!--quand on clique on appelle ma function qui a pour argument le titre de la collection et l'index qui sert a changer l'etat d'une propriété-->
                             <v-icon dark>add</v-icon>
                         </v-btn>
                         <v-btn fab medium dark color="teal" @click="showDetail(index)">

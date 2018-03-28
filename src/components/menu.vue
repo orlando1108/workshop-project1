@@ -71,9 +71,11 @@ import store from '../store.js'
   },
   email: {
     get () {
+        // console.log(this.$store.state.retailer_email)
       return this.$store.state.retailer_email;
     },
     set (value) {
+        //console.log(this.$store.state.retailer_email)
       this.$store.commit('UPDATE_EMAIL', value)
     }
   }
@@ -103,18 +105,20 @@ import store from '../store.js'
 
             //function for send
             submit () {
+                console.log('submiiiit   '+ this.$store.state.retailer_email  );
+                console.log('submiiiit   '+ this.$store.state.retailer_name  );
                 if (this.$refs.form.validate()) {
-                    this.$refs.form.reset();
                     this.sendOrder();
+                     this.$refs.form.reset();
                     this.$router.push({ path: '/' });
                     this.message_send = true;
-                    console.log('message envoyée');
+                    
                 }
             },
             clear () {
                 this.$refs.form.reset()
                 this.valid = false;
-            }
+            } 
         }
     }
 </script>
