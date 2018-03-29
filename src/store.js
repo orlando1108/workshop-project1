@@ -205,7 +205,7 @@ const actions = {
               })
               .then(response => {
                   //QUERY_POST_EMAIL
-                axios.post("http://localhost:3000/api/email", {
+                axios.post(QUERY_POST_EMAIL, {
                     name: state.retailer_name,
                     email: state.retailer_email,
                     listProducts: state.list_addedProducts,
