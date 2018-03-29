@@ -7,6 +7,7 @@ Vue.use(Vuex)
 const QUERY_GET_COLLECTIONS =  "https://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/collections"
 const QUERY_GET_PRODUCTS =  "https://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/produits/"
 const QUERY_POST_COMMANDE = "https://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/commande"
+const QUERY_POST_EMAIL = "https://app-c45740da-9596-48ce-ad11-aa12b48f2082.cleverapps.io/api/commande"
 
 const _initialState = {
    // collections:[],
@@ -17,6 +18,7 @@ const _initialState = {
  }
 
 const state = {
+    map_collectionProducts: Map,
     retailer_name:'',
     retailer_email:'',
     collections:[],
@@ -30,7 +32,8 @@ const state = {
 const getters = {
      collections: state => state.collections,
      products: state => state.products,
-     isOnProducts: state => state.isProductsPage
+     isOnProducts: state => state.isProductsPage,
+     sessionStarted: state => state.list_addedCollections.length ? true: state.list_addedProducts.length ? true: false
 }
 
 const mutations = {
@@ -71,6 +74,8 @@ const mutations = {
         state.products[index].showInfo = false;
     },
     CREATE_COLLECTIONS:(state, collections)=>{
+        state.map_collectionProducts = new Map();
+        
         let collectionList = collections.map(c => {
             let obj = {
               id: c.id,
@@ -79,12 +84,15 @@ const mutations = {
               img_path: c.img_path,
               img_link: c.img_link
             };
+            state.map_collectionProducts.set(c.id, []);
             return obj;
           });
+          
           state.collections = collectionList;
+          console.log('CREATE - MAP  '+ JSON.stringify(state.map_collectionProducts));
     },
-    CREATE_PRODUCTS:(state, products)=>{
-        let productList = products.map(p => {
+    CREATE_PRODUCTS:(state, payload)=>{
+        let productList = payload.productData.map(p => {
             let obj = {
               id: p.id,
               name: p.nom,
@@ -95,9 +103,12 @@ const mutations = {
               showInfo: false,
               img_link: p.img_link
             };
+            
             return obj;
           });
+          state.map_collectionProducts.set(payload.idCollection, productList);
           state.products = productList;
+          console.log('CREATE - MAP  '+ JSON.stringify(state.map_collectionProducts));
     },
     SWITCH_PAGE:()=>{
         if(!state.isProductsPage){
@@ -178,27 +189,39 @@ const actions = {
           }
         })
         .then(response => {
-          store.commit('CREATE_PRODUCTS', response.data.Produits)
+          store.commit('CREATE_PRODUCTS', {productData: response.data.Produits, idCollection:idCollection})
         })
         .catch(error => console.error(error));
     },
     sendOrder:() => {
-        //QUERY_POST_COMMANDE
-        console.log('retailer 2 '+state.retailer_email);
-        console.log('retailer 2 '+state.retailer_name);
-        axios.post('http://localhost:3000/api/email', {
-            firstName: state.retailer_name,
-            email: state.retailer_email,
-            listProducts: state.list_addedProducts,
-            listCollections: state.list_addedCollections
-          })
-          .then(function (response) {
-           store.commit('RESET_STATE');
-           console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        //console.log('retailer 2 '+state.retailer_email);
+        //console.log('retailer 2 '+state.retailer_name);
+        return new Promise((resolve, reject) => {
+            axios.post(QUERY_POST_COMMANDE, {
+                name: state.retailer_name,
+                email: state.retailer_email,
+                listProducts: state.list_addedProducts,
+                listCollections: state.list_addedCollections
+              })
+              .then(response => {
+                  //QUERY_POST_EMAIL
+                axios.post("http://localhost:3000/api/email", {
+                    name: state.retailer_name,
+                    email: state.retailer_email,
+                    listProducts: state.list_addedProducts,
+                    listCollections: state.list_addedCollections
+                  }).then(function (response){
+                    //store.commit('RESET_STATE');
+                    //console.log(response);
+                  });
+
+                  resolve(response);
+               
+              }, error => {
+                // http failed, let the calling function know that action did not work out
+                reject(error);
+            })
+        })
     },
     clearProducts:() => {
         store.commit('CLEAR_PRODUCTS');

@@ -68,11 +68,17 @@ import * as easings from 'vuetify/es5/util/easing-patterns'
         store: store,
         mounted(){
             this.onScroll();
-            /*if(!this.products.length){*/
-                this.getProducts_inCollection(this.$route.query.idCollection);
+            //if(!this.sessionStarted){
+                console.log(this.$store.state.map_collectionProducts.has(1));
+                if(!this.$store.state.map_collectionProducts/*.has(this.$route.query.idCollection)*/){
+                   this.getProducts_inCollection(this.$route.query.idCollection);
+                }
+                
             
+        //}
         },
         computed:{
+
             target () {
                 const value = this[this.type]
                 if (!isNaN(value)) return Number(value)
@@ -85,23 +91,17 @@ import * as easings from 'vuetify/es5/util/easing-patterns'
                     easing: this.easing
                 }
             },
-            ...Vuex.mapGetters(['products']),
+            ...Vuex.mapGetters(['products','sessionStarted','map_collectionProducts']),
         },
         methods: {
             ...Vuex.mapActions({
-                    onScroll () {
-                    if (typeof window === 'undefined') return
-                    const top = window.pageYOffset ||
-                        document.documentElement.offsetTop || 0
-                    this.fab = top >20 /*a partir de combien de px de scroll en hauteur le bouton retour vers le haut apparait*/
-                    },
                         addProduct_inStore: 'addProduct',
                         deleteProduct_fromStore: 'deleteProduct',
                         getProducts_inCollection: 'fetchProducts',
                         showDetail: 'showProductDetail',
                         hideDetail: 'hideProductDetail',
                         clearProducts: 'clearProducts'}),
-                        onScroll () {
+            onScroll () {
                         if (typeof window === 'undefined') return
                         const top = window.pageYOffset ||
                         document.documentElement.offsetTop || 0

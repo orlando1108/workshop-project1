@@ -35,21 +35,23 @@
                                 <v-btn @click="clear">CLEAR</v-btn>
                             </v-form>
                         </v-card>
-                        <!-- <transition name="fade">-->
-                        <v-dialog class="modal_form" v-model="message_send" max-width="500px">
-                            <v-card class="card_dialog">
+                        
+                        <v-dialog class="modal_form" v-model="message_sent" max-width="500px">
+                                 <v-card class="card_dialog" v-if="message_sent">
                                 <v-card-title>
+                             <transition name="fade">
                                     <span light-green>Your information and choices have been sent successfully</span>
+                            </transition>
                                     <v-spacer></v-spacer>
                                     <v-menu bottom left>
                                     </v-menu>
                                 </v-card-title>
                                 <v-card-actions>
-                                    <v-btn color="primary" flat @click.stop="message_send=false">Close</v-btn>
+                                    <v-btn color="primary" flat @click.stop="message_sent=false">Close</v-btn>
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
-                       <!--  <transition> -->
+                        
                     </v-flex>
         </v-content>
     </v-app>
@@ -90,7 +92,7 @@ import store from '../store.js'
   },
         data: () => ({
             visible:true,
-            message_send:false,
+            message_sent:false,
             valid: false,
             nameRules: [
                 v => !!v || 'Name is required',
@@ -111,17 +113,18 @@ import store from '../store.js'
             ...Vuex.mapActions({switchPage:'switchPage',
                                 sendOrder: 'sendOrder'
                                 }),
-
-            //function for send
             submit () {
-                console.log('submiiiit   '+ this.$store.state.retailer_email  );
-                console.log('submiiiit   '+ this.$store.state.retailer_name  );
+                /*console.log('submiiiit   '+ this.$store.state.retailer_email  );
+                console.log('submiiiit   '+ this.$store.state.retailer_name  );*/
                 if (this.$refs.form.validate()) {
-                    this.sendOrder();
-                     this.$refs.form.reset();
-                    this.$router.push({ path: '/' });
-                    this.message_send = true;
-                    
+                    this.sendOrder().then(response => {
+                        console.log("Got some data");
+                         this.$refs.form.reset();
+                         this.$router.push({ path: '/' });
+                         this.message_sent = true;
+                     }, error => {
+                        console.error("Got nothing from server")
+                    });
                 }
             },
             clear () {
@@ -141,4 +144,12 @@ import store from '../store.js'
     nav[class^="toolbar"] h2{
         font-size:1.3em;
     }
+  /*  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s, transform 1s;
+}
+
+.fade-enter, .fade-leave-active{
+    opacity: 0;
+    transform: translateY(20px);
+}*/
 </style>
